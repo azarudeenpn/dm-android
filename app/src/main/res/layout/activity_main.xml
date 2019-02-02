@@ -9,11 +9,44 @@
         tools:context=".MainActivity">
 
     <Button
+            android:id="@+id/Main_RescueButton"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_main_ic_button"
+            android:textColor="@android:color/white"
+            android:text="@string/rescue"
+            android:textSize="40sp"
+            android:textAllCaps="false"
+            android:paddingTop="20dp"
+            android:drawableTop="@drawable/ic_rescue"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/Main_VolunteerButton"
+    />
+    <Button
+            android:id="@+id/Main_VolunteerButton"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_main_ic_button"
+            android:textColor="@android:color/white"
+            android:text="@string/volunteer"
+            android:textSize="40sp"
+            android:textAllCaps="false"
+            android:paddingTop="20dp"
+            android:drawableTop="@drawable/ic_volunteer"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Main_RescueButton"
+            app:layout_constraintBottom_toTopOf="@id/Main_ICButton"
+    />
+
+    <Button
             android:id="@+id/Main_ICButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Information Center"
-            android:textColor="#ffff12"
+            android:text="@string/information_center"
+            android:textColor="@android:color/white"
             android:background="@drawable/bg_main_ic_button"
             app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="buttonClick"
