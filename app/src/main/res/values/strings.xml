@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">DM-Android</string>
     <string name="icbuttonText">Information Center</string>
+    <string name="information_center">Information Center</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="rescue">Rescue</string>
 </resources>
