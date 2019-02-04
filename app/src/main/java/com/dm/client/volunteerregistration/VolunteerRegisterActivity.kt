@@ -1,7 +1,8 @@
-package com.dm.client
+package com.dm.client.volunteerregistration
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.dm.client.R
 
 class VolunteerRegisterActivity : AppCompatActivity() {
 
