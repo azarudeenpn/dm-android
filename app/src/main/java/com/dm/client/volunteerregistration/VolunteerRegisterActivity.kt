@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import com.dm.client.R
 
 class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresenter.Contract {
@@ -20,7 +21,7 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
         nameInput = findViewById(R.id.VolunteerRegister_NameInput)
         phoneInput = findViewById(R.id.VolunteerRegister_PhoneInput)
 
-        presenter = VolunteerRegisterPresenter(this)
+        presenter = VolunteerRegisterPresenter(this, this)
 
     }
 
@@ -30,6 +31,10 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
 
     override fun onNameerror(error: String) {
         nameInput.error = error
+    }
+
+    override fun onNetworkError() {
+        Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
     }
 
     fun volunteerRegistrationButtonClick(view: View) {
