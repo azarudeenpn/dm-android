@@ -1,5 +1,6 @@
 package com.dm.client
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +13,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
     fun buttonClick(view: View){
-        Toast.makeText(this, "Testing Button", Toast.LENGTH_LONG).show()
+        when(view.id){
+            R.id.Main_VolunteerButton -> {
+                val i = Intent(this, VolunteerRegisterActivity::class.java)
+                startActivity(i)
+            }
+
+        }
+
     }
 }
