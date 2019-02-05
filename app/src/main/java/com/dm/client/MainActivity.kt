@@ -22,10 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sms = SmsManager.getDefault()
-        sms.sendTextMessage("+918089709076", null, "Testing", null, null)
-
-
         //Checking weather location is enabled.
         if(isLocationEnabled())
             Toast.makeText(this, "Location is Enabled", Toast.LENGTH_LONG).show()
