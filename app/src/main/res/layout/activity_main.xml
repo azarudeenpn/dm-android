@@ -19,6 +19,7 @@
             android:textAllCaps="false"
             android:paddingTop="20dp"
             android:drawableTop="@drawable/ic_rescue"
+            android:onClick="buttonClick"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"

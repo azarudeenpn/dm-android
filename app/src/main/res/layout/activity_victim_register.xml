@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        tools:context=".victimregistration.VictimRegisterActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="20dp"
+    >
+
+        <EditText
+                android:id="@+id/VictimRegister_NameInput"
+                android:hint="Name"
+                android:textColorHint="#B4B1B1"
+                android:backgroundTint="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+
+        />
+
+        <EditText
+                android:id="@+id/VictimRegister_LocationInput"
+                android:hint="Location"
+                android:textColorHint="#B4B1B1"
+                android:backgroundTint="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+        />
+
+        <Button
+                android:id="@+id/VictimSubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:textColor="#ffffff"
+                android:background="@drawable/bg_main_ic_button"
+        />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
