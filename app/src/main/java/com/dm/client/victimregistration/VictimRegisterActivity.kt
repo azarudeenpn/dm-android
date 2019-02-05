@@ -22,7 +22,7 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.cont
         nameInput = findViewById(R.id.VictimRegister_NameInput)
         manualLocationInput = findViewById(R.id.VictimRegister_LocationInput)
 
-        presenter = VictimRegisterPresenter(this,this)
+        presenter = VictimRegisterPresenter(this, this)
     }
 
     override fun onNameerror(error: String) {
@@ -33,10 +33,10 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.cont
         manualLocationInput.error = error
     }
 
-    fun victimRegistrationButtonClick(view: View){
-        when(view.id){
+    fun victimRegistrationButtonClick(view: View) {
+        when (view.id) {
             R.id.VictimSubmitButton -> {
-                presenter.register(nameInput.text.toString(),manualLocationInput.text.toString())
+                presenter.register(nameInput.text.toString(), manualLocationInput.text.toString())
             }
         }
     }
