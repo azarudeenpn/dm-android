@@ -1,10 +1,12 @@
 package com.dm.client.volunteerregistration
 
 import android.content.Context
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
 
@@ -21,6 +23,14 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
         } else {
             val registerRequest = object :
                 StringRequest(Request.Method.POST, "http://192.168.0.3:8000/volunteer/register", Response.Listener {
+                    response ->
+                    run {
+                        val reader = JSONObject(response)
+                        if(reader.getBoolean("success")) {
+
+                            Toast.makeText(context,"Details entered in Database",Toast.LENGTH_LONG ).show()
+                        }
+                    }
 
                 }, Response.ErrorListener {
                     ui.onNetworkError()
