@@ -29,7 +29,7 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
                 override fun getParams(): MutableMap<String, String> {
                     val params = HashMap<String, String>()
                     params["name"] = name
-                    params["phone"] = phone
+                    params["phone"] = "+91$phone"
                     params["lat"] = "10"
                     params["lon"] = "76"
                     return params
