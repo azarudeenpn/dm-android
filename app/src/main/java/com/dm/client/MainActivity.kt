@@ -68,12 +68,21 @@ class MainActivity : AppCompatActivity() {
     private fun getLocation() {
         locationClient.lastLocation.addOnSuccessListener { location ->
             run {
-                //Written the location to android preference
                 val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
-                preferences.edit().apply {
-                    putFloat("latitude", location.latitude.toFloat())
-                    putFloat("longitude", location.longitude.toFloat())
-                }.apply()
+                if(location!= null) {
+                    //Written the location to android preference
+                    preferences.edit().apply {
+                        putFloat("latitude", location.latitude.toFloat())
+                        putFloat("longitude", location.longitude.toFloat())
+                    }.apply()
+                }
+
+                else{
+                    preferences.edit().apply {
+                        putFloat("latitude", 10F)
+                        putFloat("longitude", 76F)
+                    }.apply()
+                }
             }
         }
     }

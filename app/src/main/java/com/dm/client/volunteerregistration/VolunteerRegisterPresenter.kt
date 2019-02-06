@@ -10,7 +10,7 @@ import org.json.JSONObject
 
 class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
 
-    fun register(name: String, phone: String) {
+    fun register(name: String, phone: String, lat: Float, lon: Float) {
         if (name.isBlank() || phone.isBlank()) {
             if (name.isBlank()) {
                 ui.onNameerror("Name should not empty")
@@ -48,8 +48,8 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
                     val params = HashMap<String, String>()
                     params["name"] = name
                     params["phone"] = "+91$phone"
-                    params["lat"] = "10"
-                    params["lon"] = "76"
+                    params["lat"] = lat.toString()
+                    params["lon"] = lon.toString()
                     return params
                 }
 

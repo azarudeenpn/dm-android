@@ -1,5 +1,6 @@
 package com.dm.client.volunteerregistration
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -37,10 +38,15 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
         Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
     }
 
+
     fun volunteerRegistrationButtonClick(view: View) {
+        val preferances = getSharedPreferences("location",Context.MODE_PRIVATE)
+        val lat = preferances.getFloat("latitude",10F)
+        val lon = preferances.getFloat("longitude",76F)
         when (view.id) {
             R.id.VolunteerSubmitButton -> {
-                presenter.register(nameInput.text.toString(), phoneInput.text.toString())
+                presenter.register(nameInput.text.toString(), phoneInput.text.toString(),lat,lon)
+
             }
         }
 
