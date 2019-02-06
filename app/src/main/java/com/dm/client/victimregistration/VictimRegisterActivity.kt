@@ -25,11 +25,11 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.cont
         presenter = VictimRegisterPresenter(this, this)
     }
 
-    override fun onNameerror(error: String) {
+    override fun onNameError(error: String) {
         nameInput.error = error
     }
 
-    override fun onLocationerror(error: String) {
+    override fun onLocationError(error: String) {
         manualLocationInput.error = error
     }
 
