@@ -26,11 +26,11 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
 
     }
 
-    override fun onPhoneerror(error: String) {
+    override fun onPhoneError(error: String) {
         phoneInput.error = error
     }
 
-    override fun onNameerror(error: String) {
+    override fun onNameError(error: String) {
         nameInput.error = error
     }
 
@@ -40,9 +40,9 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
 
 
     fun volunteerRegistrationButtonClick(view: View) {
-        val preferances = getSharedPreferences("location", Context.MODE_PRIVATE)
-        val lat = preferances.getFloat("latitude", 10F)
-        val lon = preferances.getFloat("longitude", 76F)
+        val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
+        val lat = preferences.getFloat("latitude", 10F)
+        val lon = preferences.getFloat("longitude", 76F)
         when (view.id) {
             R.id.VolunteerSubmitButton -> {
                 presenter.register(nameInput.text.toString(), phoneInput.text.toString(), lat, lon)
@@ -50,8 +50,6 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
             }
         }
 
-
     }
-
 
 }

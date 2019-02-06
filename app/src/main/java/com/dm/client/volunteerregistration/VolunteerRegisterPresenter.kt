@@ -13,11 +13,11 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
     fun register(name: String, phone: String, lat: Float, lon: Float) {
         if (name.isBlank() || phone.isBlank()) {
             if (name.isBlank()) {
-                ui.onNameerror("Name should not empty")
+                ui.onNameError("Name should not empty")
 
             }
             if (phone.isBlank()) {
-                ui.onPhoneerror("Phone number should not empty")
+                ui.onPhoneError("Phone number should not empty")
 
             }
         } else {
@@ -34,7 +34,7 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
                             } else {
                                 val type: Int = reader.getInt("type")
                                 when (type) {
-                                    101 -> ui.onPhoneerror("Incorrect phone number")
+                                    101 -> ui.onPhoneError("Incorrect phone number")
                                 }
                             }
                         }
@@ -61,8 +61,8 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
     }
 
     interface Contract {
-        fun onPhoneerror(error: String)
-        fun onNameerror(error: String)
+        fun onPhoneError(error: String)
+        fun onNameError(error: String)
         fun onNetworkError()
     }
 }
