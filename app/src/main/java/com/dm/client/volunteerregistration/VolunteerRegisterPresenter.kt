@@ -22,20 +22,28 @@ class VolunteerRegisterPresenter(val ui: Contract, val context: Context) {
             }
         } else {
             val registerRequest = object :
-                StringRequest(Request.Method.POST, "http://192.168.0.3:8000/volunteer/register", Response.Listener {
-                    response ->
-                    run {
-                        val reader = JSONObject(response)
-                        if(reader.getBoolean("success")) {
+                StringRequest(
+                    Request.Method.POST,
+                    "http://192.168.0.3:8000/volunteer/register",
+                    Response.Listener { response ->
+                        run {
+                            val reader = JSONObject(response)
+                            if (reader.getBoolean("success")) {
 
-                            Toast.makeText(context,"Details entered in Database",Toast.LENGTH_LONG ).show()
+                                Toast.makeText(context, "Details entered in Database", Toast.LENGTH_LONG).show()
+                            } else {
+                                val type: Int = reader.getInt("type")
+                                when (type) {
+                                    101 -> ui.onPhoneerror("Incorrect phone number")
+                                }
+                            }
                         }
-                    }
 
-                }, Response.ErrorListener {
-                    ui.onNetworkError()
+                    },
+                    Response.ErrorListener {
+                        ui.onNetworkError()
 
-                }) {
+                    }) {
                 override fun getParams(): MutableMap<String, String> {
                     val params = HashMap<String, String>()
                     params["name"] = name
