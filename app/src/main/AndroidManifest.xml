@@ -13,6 +13,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".VolunteerActivity">
+        </activity>
         <activity android:name=".victimregistration.VictimRegisterActivity">
         </activity>
         <activity android:name=".volunteerregistration.VolunteerRegisterActivity">
