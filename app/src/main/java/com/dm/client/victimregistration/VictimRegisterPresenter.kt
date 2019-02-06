@@ -30,11 +30,10 @@ class VictimRegisterPresenter(val ui: Contract, val context: Context) {
                 Response.Listener { response ->
                     run {
                         val result = JSONObject(response)
-                        if(result.getBoolean("success")){
+                        if (result.getBoolean("success")) {
                             Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
-                        }
-                        else{
-                            when(result.getInt("type")){
+                        } else {
+                            when (result.getInt("type")) {
                                 101 -> ui.onPhoneError("Phone number is invalid")
                             }
                         }

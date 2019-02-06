@@ -45,9 +45,11 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
             R.id.VictimSubmitButton -> {
                 val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
 
-                presenter.register(nameInput.text.toString(), manualLocationInput.text.toString(),
+                presenter.register(
+                    nameInput.text.toString(), manualLocationInput.text.toString(),
                     phoneInput.text.toString(), preferences.getFloat("latitude", 10f)
-                    ,preferences.getFloat("longitude", 76f))
+                    , preferences.getFloat("longitude", 76f)
+                )
             }
         }
     }
