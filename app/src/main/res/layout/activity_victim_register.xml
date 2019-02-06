@@ -44,6 +44,19 @@
                 android:layout_marginBottom="50dp"
         />
 
+        <EditText
+                android:id="@+id/VictimRegister_PhoneInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="#B4B1B1"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:backgroundTint="#ffffff"
+                android:layout_marginBottom="50dp"
+
+        />
+
         <Button
                 android:id="@+id/VictimSubmitButton"
                 android:layout_width="match_parent"
