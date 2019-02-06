@@ -1,11 +1,16 @@
 package com.dm.client.victimregistration
 
 import android.content.Context
+import android.widget.Toast
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
-class VictimRegisterPresenter(val ui: contract, val context: Context) {
+class VictimRegisterPresenter(val ui: Contract, val context: Context) {
 
-    fun register(name: String, location: String) {
-        if (name.isBlank() || location.isBlank()) {
+    fun register(name: String, location: String, phone: String, lat: Float, lon: Float) {
+        if (name.isBlank() || location.isBlank() || phone.isBlank()) {
             if (name.isBlank()) {
                 ui.onNameError("Name should not empty")
             }
@@ -13,11 +18,51 @@ class VictimRegisterPresenter(val ui: contract, val context: Context) {
             if (location.isBlank()) {
                 ui.onLocationError("Enter Location")
             }
+            if (phone.isBlank()) {
+                ui.onPhoneError("Phone is required")
+            }
+        } else {
+            //Everything is OK
+
+            val victimTicketRequest = object : StringRequest(
+                Method.POST,
+                "http://192.168.0.3:8000/victim/ticket/create",
+                Response.Listener { response ->
+                    run {
+                        val result = JSONObject(response)
+                        if(result.getBoolean("success")){
+                            Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            when(result.getInt("type")){
+                                101 -> ui.onPhoneError("Phone number is invalid")
+                            }
+                        }
+                    }
+
+                },
+                Response.ErrorListener {
+                    Toast.makeText(context, "Unable to connect to the network", Toast.LENGTH_LONG).show()
+                }) {
+                override fun getParams(): MutableMap<String, String> {
+                    val params = HashMap<String, String>()
+
+                    params["name"] = name
+                    params["phone"] = "+91$phone"
+                    params["location"] = location
+                    params["lat"] = lat.toString()
+                    params["lon"] = lon.toString()
+
+                    return params
+                }
+            }
+            Volley.newRequestQueue(context).add(victimTicketRequest)
         }
     }
 
     interface Contract {
         fun onNameError(error: String)
         fun onLocationError(error: String)
+        fun onPhoneError(error: String)
     }
 }
