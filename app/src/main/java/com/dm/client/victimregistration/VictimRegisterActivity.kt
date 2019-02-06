@@ -8,7 +8,7 @@ import android.widget.EditText
 import com.dm.client.R
 import kotlinx.android.synthetic.main.activity_victim_register.*
 
-class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.contract {
+class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Contract {
 
     private lateinit var nameInput: EditText
     private lateinit var manualLocationInput: EditText

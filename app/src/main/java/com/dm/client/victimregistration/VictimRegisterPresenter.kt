@@ -16,7 +16,7 @@ class VictimRegisterPresenter(val ui: contract, val context: Context) {
         }
     }
 
-    interface contract {
+    interface Contract {
         fun onNameError(error: String)
         fun onLocationError(error: String)
     }
