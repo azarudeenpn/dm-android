@@ -1,30 +1,35 @@
 package com.dm.client
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.telephony.SmsManager
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.dm.client.victimregistration.VictimRegisterActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class MainActivity : AppCompatActivity() {
 
     private val PERMISSIONREQUEST = 1251
 
+    private lateinit var locationClient: FusedLocationProviderClient
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        locationClient = LocationServices.getFusedLocationProviderClient(this)
         //Checking weather location is enabled.
-        if(isLocationEnabled())
-            Toast.makeText(this, "Location is Enabled", Toast.LENGTH_LONG).show()
+        if (isLocationEnabled())
+            getLocation()
         else
             openPermissionPrompt()
     }
@@ -32,9 +37,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun isLocationEnabled(): Boolean {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED
+            ) {
                 return true
             }
             return false
@@ -45,21 +52,39 @@ class MainActivity : AppCompatActivity() {
     private fun openPermissionPrompt() {
         //When never again is given.
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-
+            //Show prompt here when the checkmark is checked.
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                PERMISSIONREQUEST
+            )
         }
-        else{
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSIONREQUEST)
+    }
+
+    //Removed the checking of lint.
+    //Currently only last location is used. modify this to use getting location updates.
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        locationClient.lastLocation.addOnSuccessListener { location ->
+            run {
+                //Written the location to android preference
+                val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
+                preferences.edit().apply {
+                    putFloat("latitude", location.latitude.toFloat())
+                    putFloat("longitude", location.longitude.toFloat())
+                }.apply()
+            }
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode){
+        when (requestCode) {
             PERMISSIONREQUEST -> {
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //Permission is granted.
-                }
-                else{
+                    getLocation()
+                } else {
                     Toast.makeText(this, "App cannot function without permission", Toast.LENGTH_LONG).show()
                 }
             }
