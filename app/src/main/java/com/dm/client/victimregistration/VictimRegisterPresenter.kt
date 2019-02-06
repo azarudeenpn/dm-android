@@ -7,7 +7,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
-class VictimRegisterPresenter(val ui: Contract, val context: Context) {
+class VictimRegisterPresenter(private val ui: Contract, private val context: Context) {
 
     fun register(name: String, location: String, phone: String, lat: Float, lon: Float) {
         if (name.isBlank() || location.isBlank() || phone.isBlank()) {
