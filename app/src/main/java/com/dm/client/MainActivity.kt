@@ -108,6 +108,10 @@ class MainActivity : AppCompatActivity() {
                 val i = Intent(this, VictimRegisterActivity::class.java)
                 startActivity(i)
             }
+            R.id.Main_ICButton -> {
+                val i = Intent(this, VolunteerActivity::class.java)
+                startActivity(i)
+            }
         }
 
     }
