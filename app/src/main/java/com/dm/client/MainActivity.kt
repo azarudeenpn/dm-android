@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.dm.client.victimregistration.VictimRegisterActivity
+import com.dm.client.volunteer.VolunteerActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
