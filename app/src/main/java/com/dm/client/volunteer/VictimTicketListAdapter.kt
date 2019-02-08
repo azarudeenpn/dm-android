@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.dm.client.R
 import com.dm.client.VictimTicket
+import com.dm.client.ticket.TicketActivity
 import kotlinx.android.synthetic.main.layout_victim_ticket_list_item.view.*
 import java.util.*
 
@@ -48,10 +49,18 @@ class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>): Recycl
     override fun getItemCount() = list.size
 
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    //Inner class to access the object of the outer class
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val distanceView = view.findViewById<TextView>(R.id.Volunteer_DistanceView)!!
         val mapButton = view.findViewById<ImageButton>(R.id.Volunteer_ListMapButton)!!
         val phoneButton = view.findViewById<ImageButton>(R.id.Volunteer_ListPhoneButton)!!
         val timeDurationView = view.findViewById<TextView>(R.id.Volunteer_TimeView)!!
+
+        init {
+            view.setOnClickListener {
+                val i = Intent(view.context, TicketActivity::class.java)
+                view.context.startActivity(i)
+            }
+        }
     }
 }
