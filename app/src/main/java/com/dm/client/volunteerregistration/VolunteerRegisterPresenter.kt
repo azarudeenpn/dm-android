@@ -6,6 +6,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.dm.client.services.EndPoints
 import org.json.JSONObject
 
 class VolunteerRegisterPresenter(private val ui: Contract, private val context: Context) {
@@ -24,7 +25,7 @@ class VolunteerRegisterPresenter(private val ui: Contract, private val context: 
             val registerRequest = object :
                 StringRequest(
                     Request.Method.POST,
-                    "http://192.168.0.3:8000/volunteer/register",
+                    "http://${EndPoints().hostname}/volunteer/register",
                     Response.Listener { response ->
                         run {
                             val reader = JSONObject(response)

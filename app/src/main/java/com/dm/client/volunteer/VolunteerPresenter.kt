@@ -8,6 +8,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.dm.client.VictimTicket
+import com.dm.client.services.EndPoints
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -17,7 +18,7 @@ class VolunteerPresenter(private val context: Context, private val ui: Contract)
 
         val url = Uri.Builder().apply {
             scheme("http")
-            encodedAuthority("192.168.0.3:8000/victim/requests")
+            encodedAuthority("${EndPoints().hostname}/victim/requests")
             appendQueryParameter("lat", lat.toString())
             appendQueryParameter("lon", lon.toString())
         }.build().toString()
