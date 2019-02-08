@@ -13,13 +13,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".volunteer.VolunteerActivity">
+        <activity android:name=".volunteer.VolunteerActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".victimregistration.VictimRegisterActivity">
+        <activity android:name=".victimregistration.VictimRegisterActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".volunteerregistration.VolunteerRegisterActivity">
+        <activity android:name=".volunteerregistration.VolunteerRegisterActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
