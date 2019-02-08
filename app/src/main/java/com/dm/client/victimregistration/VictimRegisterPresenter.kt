@@ -38,7 +38,6 @@ class VictimRegisterPresenter(private val ui: Contract, private val context: Con
                             }
                         }
                     }
-
                 },
                 Response.ErrorListener {
                     Toast.makeText(context, "Unable to connect to the network", Toast.LENGTH_LONG).show()

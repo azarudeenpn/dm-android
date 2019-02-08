@@ -23,13 +23,14 @@ class VolunteerPresenter(private val context: Context, private val ui: Contract)
         }.build().toString()
         val victimTicketRequest = StringRequest(url, Response.Listener {response ->
             run{
+                Log.v("dm", response)
                 val res = JSONObject(response)
                 if(res.getBoolean("success")){
                     val result = res["result"] as JSONArray
                     val list = ArrayList<VictimTicket>()
                     for(i in 0 until result.length()){
                         val jsonItem = result.getJSONObject(i)
-                        val item = VictimTicket(jsonItem.getString("name"), jsonItem.getString("phone"), jsonItem.getDouble("latitude").toFloat(),  jsonItem.getDouble("longitude").toFloat(), jsonItem.getDouble("distance").toFloat())
+                        val item = VictimTicket(jsonItem.getString("name"), jsonItem.getString("phone"), jsonItem.getDouble("latitude").toFloat(),  jsonItem.getDouble("longitude").toFloat(), jsonItem.getDouble("distance").toFloat(), jsonItem.getInt("timeTaken"))
                         list.add(item)
                     }
                     ui.onListReady(list)

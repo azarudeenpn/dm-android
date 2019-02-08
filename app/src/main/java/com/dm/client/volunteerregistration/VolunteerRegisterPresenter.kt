@@ -31,6 +31,7 @@ class VolunteerRegisterPresenter(private val ui: Contract, private val context: 
                             if (reader.getBoolean("success")) {
 
                                 Toast.makeText(context, "Details entered in Database", Toast.LENGTH_LONG).show()
+                                ui.onSuccess(phone)
                             } else {
                                 val type: Int = reader.getInt("type")
                                 when (type) {
@@ -52,7 +53,6 @@ class VolunteerRegisterPresenter(private val ui: Contract, private val context: 
                     params["lon"] = lon.toString()
                     return params
                 }
-
             }
 
 
@@ -64,5 +64,6 @@ class VolunteerRegisterPresenter(private val ui: Contract, private val context: 
         fun onPhoneError(error: String)
         fun onNameError(error: String)
         fun onNetworkError()
+        fun onSuccess(phone: String)
     }
 }

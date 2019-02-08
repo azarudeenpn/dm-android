@@ -38,6 +38,14 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
         Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
     }
 
+    override fun onSuccess(phone: String) {
+        val preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+        preferences.edit().apply {
+            putBoolean("isVolunteer", true)
+            putString("phone", phone)
+        }.apply()
+    }
+
 
     fun volunteerRegistrationButtonClick(view: View) {
         val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)

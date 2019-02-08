@@ -40,6 +40,7 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
         phoneInput.error = error
     }
 
+
     fun victimRegistrationButtonClick(view: View) {
         when (view.id) {
             R.id.VictimSubmitButton -> {
