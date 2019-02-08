@@ -1,12 +1,14 @@
 package com.dm.client.volunteerregistration
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.dm.client.R
+import com.dm.client.volunteer.VolunteerActivity
 
 class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresenter.Contract {
 
@@ -44,6 +46,8 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
             putBoolean("isVolunteer", true)
             putString("phone", phone)
         }.apply()
+        val i = Intent(this, VolunteerActivity::class.java)
+        startActivity(i)
     }
 
 
