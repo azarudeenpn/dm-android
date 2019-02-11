@@ -59,6 +59,7 @@ class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>): Recycl
         init {
             view.setOnClickListener {
                 val i = Intent(view.context, TicketActivity::class.java)
+                i.putExtra("phone", list[layoutPosition].phone)
                 view.context.startActivity(i)
             }
         }
