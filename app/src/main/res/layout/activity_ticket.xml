@@ -49,7 +49,7 @@
             android:textSize="28sp"
             android:text="Aslam Rasheed"
             android:textColor="@android:color/white"
-            app:layout_constraintLeft_toRightOf="@id/Ticket_NameLabel"
+            app:layout_constraintLeft_toRightOf="@id/Ticket_DateLabel"
             app:layout_constraintBottom_toBottomOf="@id/Ticket_NameLabel"
     />
     <TextView
@@ -66,13 +66,78 @@
     <TextView
             android:id="@+id/Ticket_PlaceView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="41dp"
             android:text="Kalamassery"
             android:textColor="@android:color/white"
             android:textSize="28sp"
-            app:layout_constraintLeft_toRightOf="@id/Ticket_NameLabel"
+            app:layout_constraintLeft_toRightOf="@id/Ticket_DateLabel"
             app:layout_constraintBottom_toBottomOf="@id/Ticket_PlaceLabel"
+            app:layout_constraintTop_toTopOf="@id/Ticket_PlaceLabel"
     />
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/Ticket_TimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requested time"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@id/Ticket_PlaceLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+    />
+
+    <TextView
+            android:id="@+id/Ticket_TimeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="10:10 AM"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="@id/Ticket_TimeLabel"
+            app:layout_constraintBottom_toBottomOf="@id/Ticket_TimeLabel"
+            app:layout_constraintLeft_toRightOf="@id/Ticket_DateLabel"
+    />
+    <TextView
+            android:id="@+id/Ticket_DateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requested Date"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@id/Ticket_TimeLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <TextView
+            android:id="@+id/Ticket_DateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10-11-2002"
+            android:textSize="28sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="@id/Ticket_DateLabel"
+            app:layout_constraintBottom_toBottomOf="@id/Ticket_DateLabel"
+            app:layout_constraintLeft_toRightOf="@id/Ticket_DateLabel"
+    />
+
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Proceed to help"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_main_ic_button"
+            android:padding="10dp"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+    />
 </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
