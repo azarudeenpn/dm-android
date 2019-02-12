@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AbsListView
 import android.widget.EditText
+import android.widget.Toast
+import com.android.volley.toolbox.Volley
 import com.dm.client.R
 import kotlinx.android.synthetic.main.activity_victim_register.*
 
@@ -40,6 +42,14 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
         phoneInput.error = error
     }
 
+    override fun onSuccess(phone: String) {
+        val preference = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+        preference.edit().apply{
+            putBoolean("isVolunteer", false)
+            putString("phone", "+91$phone")
+        }.apply()
+        Toast.makeText(this, "We got your request, a volunteer will contact you soon", Toast.LENGTH_LONG).show()
+    }
 
     fun victimRegistrationButtonClick(view: View) {
         when (view.id) {

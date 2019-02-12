@@ -33,6 +33,7 @@ class VictimRegisterPresenter(private val ui: Contract, private val context: Con
                         val result = JSONObject(response)
                         if (result.getBoolean("success")) {
                             Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+                            ui.onSuccess(phone)
                         } else {
                             when (result.getInt("type")) {
                                 101 -> ui.onPhoneError("Phone number is invalid")
@@ -63,5 +64,6 @@ class VictimRegisterPresenter(private val ui: Contract, private val context: Con
         fun onNameError(error: String)
         fun onLocationError(error: String)
         fun onPhoneError(error: String)
+        fun onSuccess(phone: String)
     }
 }
