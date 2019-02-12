@@ -91,6 +91,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     else{
                         Toast.makeText(this, "Victim is registered", Toast.LENGTH_LONG).show()
+                        val i = Intent(this, VictimActivity::class.java)
+                        startActivity(i)
                     }
                 }
                 else{
