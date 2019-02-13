@@ -16,11 +16,15 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
     private lateinit var presenter: TicketPresenter
     private lateinit var nameView: TextView
     private lateinit var placeView: TextView
+    private lateinit var dateView: TextView
+    private lateinit var timeView: TextView
 
     private var lat = 10f
     private var lon = 76f
 
-    private var phone = ""
+    private var volPhone = ""
+    private var vicPhone = ""
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +33,12 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
 
         nameView = findViewById(R.id.Ticket_NameView)
         placeView = findViewById(R.id.Ticket_PlaceView)
+        dateView = findViewById(R.id.Ticket_DateView)
+        timeView = findViewById(R.id.Ticket_TimeView)
 
         presenter = TicketPresenter(this, this)
-        presenter.expand(intent.getStringExtra("phone"))
+        volPhone = intent.getStringExtra("phone")
+        presenter.expand(volPhone)
     }
 
     override fun onNetworkError() {
@@ -39,12 +46,14 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
     }
 
 
-    override fun onSuccess(name: String, phone: String, place: String, lat: Double, lon: Double) {
+    override fun onSuccess(name: String, phone: String, place: String, lat: Double, lon: Double, dateString: String, timeString: String) {
         nameView.text = name
         placeView.text = place
+        timeView.text = timeString
+        dateView.text = dateString
         this.lat = lat.toFloat()
         this.lon = lon.toFloat()
-        this.phone = phone
+        this.vicPhone = phone
 
     }
 
@@ -57,7 +66,7 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
             }
             R.id.Ticket_PhoneButton -> {
                 val i = Intent(Intent.ACTION_DIAL)
-                i.data = Uri.parse("tel:$phone")
+                i.data = Uri.parse("tel:$vicPhone")
                 startActivity(i)
             }
             R.id.Ticket_ProceedButton -> {
