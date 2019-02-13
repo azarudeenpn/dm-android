@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/i_want_help"
                 android:textColor="#ffffff"
-                android:textSize="60dp"
+                android:textSize="60sp"
                 android:textAlignment="center"
                 android:layout_marginBottom="50dp"
         />
