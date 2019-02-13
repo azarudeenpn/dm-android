@@ -3,4 +3,20 @@
     <string name="information_center">Information Center</string>
     <string name="volunteer">Volunteer</string>
     <string name="rescue">Rescue</string>
+    <string name="request_ticket">Request Ticket</string>
+    <string name="name">Name</string>
+    <string name="place">Place</string>
+    <string name="requested_time">Requested time</string>
+    <string name="requested_date">Requested Date</string>
+    <string name="proceed_to_help">Proceed to help</string>
+    <string name="be_safe">Be Safe</string>
+    <string name="logout">Logout</string>
+    <string name="soon_contact">You will be soon contacted by a volunteer</string>
+    <string name="delete_request">Delete Request</string>
+    <string name="i_want_help">I want help</string>
+    <string name="location">Location</string>
+    <string name="phone">Phone</string>
+    <string name="submit">Submit</string>
+    <string name="request">Request</string>
+    <string name="to_help">I want to help</string>
 </resources>

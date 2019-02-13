@@ -21,7 +21,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="I want help"
+                android:text="@string/i_want_help"
                 android:textColor="#ffffff"
                 android:textSize="60dp"
                 android:textAlignment="center"
@@ -30,7 +30,7 @@
 
         <EditText
                 android:id="@+id/VictimRegister_NameInput"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:textColor="#ffffff"
                 android:textColorHint="#B4B1B1"
                 android:backgroundTint="#ffffff"
@@ -43,7 +43,7 @@
 
         <EditText
                 android:id="@+id/VictimRegister_LocationInput"
-                android:hint="Location"
+                android:hint="@string/location"
                 android:textColor="#ffffff"
                 android:textColorHint="#B4B1B1"
                 android:backgroundTint="#ffffff"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textColorHint="#B4B1B1"
-                android:hint="Phone"
+                android:hint="@string/phone"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:backgroundTint="#ffffff"
@@ -71,7 +71,7 @@
                 android:id="@+id/VictimSubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:textColor="#ffffff"
                 android:background="@drawable/bg_main_ic_button"
                 android:onClick="victimRegistrationButtonClick"

@@ -23,7 +23,6 @@
             android:id="@+id/Volunteer_TimeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Requested 30 Minutes ago"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toBottomOf="@id/Volunteer_DistanceView"
             app:layout_constraintLeft_toLeftOf="parent"
