@@ -85,16 +85,12 @@ class MainActivity : AppCompatActivity() {
                 val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
                 if (credentials.contains("isVolunteer")) {
                     if (credentials.getBoolean("isVolunteer", false)) {
-                        Toast.makeText(this, "Volunteer is registered", Toast.LENGTH_LONG).show()
                         val i = Intent(this, VolunteerActivity::class.java)
                         startActivity(i)
                     } else {
-                        Toast.makeText(this, "Victim is registered", Toast.LENGTH_LONG).show()
                         val i = Intent(this, VictimActivity::class.java)
                         startActivity(i)
                     }
-                } else {
-                    Toast.makeText(this, "No one is registered in this device", Toast.LENGTH_LONG).show()
                 }
             }
         }
