@@ -21,6 +21,22 @@
             app:layout_constraintBottom_toTopOf="@id/Victim_info_text_label"
     />
 
+    <Button
+            android:id="@+id/Victim_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_main_ic_button"
+            android:text="Logout"
+            android:textColor="#ffffff"
+            android:onClick="logoutButtonClick"
+            app:layout_constraintLeft_toRightOf="@id/Volunteer_Label"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/Volunteer_Label"
+
+
+    />
+
     <TextView
             android:id="@+id/Victim_info_text_label"
             android:layout_width="wrap_content"

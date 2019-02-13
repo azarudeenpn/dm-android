@@ -48,8 +48,8 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
 
     }
 
-    fun buttonClick(view: View){
-        when(view.id){
+    fun buttonClick(view: View) {
+        when (view.id) {
             R.id.Ticket_MapButton -> {
                 val uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", lat, lon)
                 val i = Intent(Intent.ACTION_VIEW, Uri.parse(uri))

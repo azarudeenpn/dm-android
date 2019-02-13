@@ -1,6 +1,7 @@
 package com.dm.client.victimregistration
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,7 +9,9 @@ import android.widget.AbsListView
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.toolbox.Volley
+import com.dm.client.MainActivity
 import com.dm.client.R
+import com.dm.client.VictimActivity
 import kotlinx.android.synthetic.main.activity_victim_register.*
 
 class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Contract {
@@ -44,7 +47,7 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
 
     override fun onSuccess(phone: String) {
         val preference = getSharedPreferences("credentials", Context.MODE_PRIVATE)
-        preference.edit().apply{
+        preference.edit().apply {
             putBoolean("isVolunteer", false)
             putString("phone", "+91$phone")
         }.apply()
@@ -58,9 +61,12 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
 
                 presenter.register(
                     nameInput.text.toString(), manualLocationInput.text.toString(),
-                    phoneInput.text.toString(), preferences.getFloat("latitude", 10f)
-                    , preferences.getFloat("longitude", 76f)
+                    phoneInput.text.toString(), preferences.getFloat("latitude", 10.59956f)
+                    , preferences.getFloat("longitude", 76.465468f)
                 )
+
+                val i = Intent(this,VictimActivity::class.java)
+                startActivity(i)
             }
         }
     }

@@ -18,7 +18,8 @@ import com.dm.client.ticket.TicketActivity
 import kotlinx.android.synthetic.main.layout_victim_ticket_list_item.view.*
 import java.util.*
 
-class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>): RecyclerView.Adapter<VictimTicketListAdapter.ViewHolder>(){
+class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>) :
+    RecyclerView.Adapter<VictimTicketListAdapter.ViewHolder>() {
 
     private lateinit var context: Context
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
@@ -28,13 +29,12 @@ class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>): Recycl
     }
 
 
-
-
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.distanceView.text = "${list[p1].distance} KM"
         p0.timeDurationView.text = "Requested ${list[p1].timeDuration} minutes ago"
         p0.mapButton.setOnClickListener {
-            val uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", list[p1].lat, list[p1].lon)
+            val uri =
+                String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", list[p1].lat, list[p1].lon)
             val i = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             context.startActivity(i)
         }
@@ -50,7 +50,7 @@ class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>): Recycl
 
 
     //Inner class to access the object of the outer class
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val distanceView = view.findViewById<TextView>(R.id.Volunteer_DistanceView)!!
         val mapButton = view.findViewById<ImageButton>(R.id.Volunteer_ListMapButton)!!
         val phoneButton = view.findViewById<ImageButton>(R.id.Volunteer_ListPhoneButton)!!

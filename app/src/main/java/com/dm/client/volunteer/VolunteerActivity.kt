@@ -1,10 +1,13 @@
 package com.dm.client.volunteer
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import com.dm.client.MainActivity
 import com.dm.client.R
 import com.dm.client.VictimTicket
 
@@ -30,5 +33,17 @@ class VolunteerActivity : AppCompatActivity(), VolunteerPresenter.Contract {
 
     override fun onListReady(list: ArrayList<VictimTicket>) {
         ticketList.adapter = VictimTicketListAdapter(list)
+    }
+
+    fun logoutButtonClick(view: View) {
+        when (view.id) {
+            R.id.Volunteer_logout -> {
+                val i = Intent(this, MainActivity::class.java)
+                val preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+                preferences.edit().clear().apply()
+                startActivity(i)
+            }
+
+        }
     }
 }

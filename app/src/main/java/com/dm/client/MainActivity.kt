@@ -78,24 +78,22 @@ class MainActivity : AppCompatActivity() {
                     }.apply()
                 } else {
                     preferences.edit().apply {
-                        putFloat("latitude", 10F)
-                        putFloat("longitude", 76F)
+                        putFloat("latitude", 10.235684f)
+                        putFloat("longitude", 76.54796f)
                     }.apply()
                 }
                 val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
-                if(credentials.contains("isVolunteer")){
-                    if(credentials.getBoolean("isVolunteer", false)) {
+                if (credentials.contains("isVolunteer")) {
+                    if (credentials.getBoolean("isVolunteer", false)) {
                         Toast.makeText(this, "Volunteer is registered", Toast.LENGTH_LONG).show()
                         val i = Intent(this, VolunteerActivity::class.java)
                         startActivity(i)
-                    }
-                    else{
+                    } else {
                         Toast.makeText(this, "Victim is registered", Toast.LENGTH_LONG).show()
                         val i = Intent(this, VictimActivity::class.java)
                         startActivity(i)
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(this, "No one is registered in this device", Toast.LENGTH_LONG).show()
                 }
             }

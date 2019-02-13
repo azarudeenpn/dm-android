@@ -14,7 +14,7 @@ import org.json.JSONObject
 
 class VolunteerPresenter(private val context: Context, private val ui: Contract) {
 
-    fun getVictimTickets(lat: Float, lon: Float){
+    fun getVictimTickets(lat: Float, lon: Float) {
 
         val url = Uri.Builder().apply {
             scheme("http")
@@ -22,16 +22,23 @@ class VolunteerPresenter(private val context: Context, private val ui: Contract)
             appendQueryParameter("lat", lat.toString())
             appendQueryParameter("lon", lon.toString())
         }.build().toString()
-        val victimTicketRequest = StringRequest(url, Response.Listener {response ->
-            run{
+        val victimTicketRequest = StringRequest(url, Response.Listener { response ->
+            run {
                 Log.v("dm", response)
                 val res = JSONObject(response)
-                if(res.getBoolean("success")){
+                if (res.getBoolean("success")) {
                     val result = res["result"] as JSONArray
                     val list = ArrayList<VictimTicket>()
-                    for(i in 0 until result.length()){
+                    for (i in 0 until result.length()) {
                         val jsonItem = result.getJSONObject(i)
-                        val item = VictimTicket(jsonItem.getString("name"), jsonItem.getString("phone"), jsonItem.getDouble("latitude").toFloat(),  jsonItem.getDouble("longitude").toFloat(), jsonItem.getDouble("distance").toFloat(), jsonItem.getInt("timeTaken"))
+                        val item = VictimTicket(
+                            jsonItem.getString("name"),
+                            jsonItem.getString("phone"),
+                            jsonItem.getDouble("latitude").toFloat(),
+                            jsonItem.getDouble("longitude").toFloat(),
+                            jsonItem.getDouble("distance").toFloat(),
+                            jsonItem.getInt("timeTaken")
+                        )
                         list.add(item)
                     }
                     ui.onListReady(list)
@@ -43,7 +50,8 @@ class VolunteerPresenter(private val context: Context, private val ui: Contract)
         })
         Volley.newRequestQueue(context).add(victimTicketRequest)
     }
-    interface Contract{
+
+    interface Contract {
         fun onListReady(list: ArrayList<VictimTicket>)
     }
 }
