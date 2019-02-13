@@ -4,18 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import com.dm.client.R
 import com.dm.client.VictimTicket
 import com.dm.client.ticket.TicketActivity
-import kotlinx.android.synthetic.main.layout_victim_ticket_list_item.view.*
 import java.util.*
 
 class VictimTicketListAdapter(private val list: ArrayList<VictimTicket>) :

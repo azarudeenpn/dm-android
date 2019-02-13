@@ -2,14 +2,12 @@ package com.dm.client.ticket
 
 import android.content.Context
 import android.net.Uri
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.dm.client.services.EndPoints
 import org.json.JSONObject
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
