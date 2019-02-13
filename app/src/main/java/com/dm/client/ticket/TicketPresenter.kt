@@ -3,6 +3,7 @@ package com.dm.client.ticket
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -28,16 +29,19 @@ class TicketPresenter(private val context: Context, private val ui: Contract) {
                 val name = result["name"] as String
                 val phoneRes = result["phone"] as String
                 val place = result["location"] as String
-                //val timeString = result["requestTime"] as String
+                val epochTime = result["requestTime"] as Long
                 val lat = result["latitude"] as Double
                 val lon = result["longitude"] as Double
 
-                //val requestTime = resl
-                //val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                //df.timeZone = TimeZone.getTimeZone("IST")
-                //val requestTime = df.parse(timeString)
+                val date = Date(epochTime)
 
-                ui.onSuccess(name, phoneRes, place, lat, lon)
+                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+                val dateString = dateFormat.format(date)
+
+                val timeFormat = SimpleDateFormat("hh:mm aa", Locale.ENGLISH)
+                val timeString = timeFormat.format(date)
+
+                ui.onSuccess(name, phoneRes, place, lat, lon, dateString, timeString)
             }
         }, Response.ErrorListener {
             ui.onNetworkError()
@@ -45,8 +49,17 @@ class TicketPresenter(private val context: Context, private val ui: Contract) {
         Volley.newRequestQueue(context).add(expandRequest)
     }
 
+    fun acceptRequest(volPhone: String, vicPhone: String){
+        val acceptedRequest = StringRequest(Request.Method.POST,"${EndPoints().hostname}/victim/request/accept", Response.Listener {
+
+        }, Response.ErrorListener {
+
+        })
+        Volley.newRequestQueue(context).add(acceptedRequest)
+    }
+
     interface Contract {
         fun onNetworkError()
-        fun onSuccess(name: String, phone: String, place: String, lat: Double, lon: Double)
+        fun onSuccess(name: String, phone: String, place: String, lat: Double, lon: Double, dateString: String, timeString: String)
     }
 }
