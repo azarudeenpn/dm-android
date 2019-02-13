@@ -53,8 +53,8 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
 
     fun volunteerRegistrationButtonClick(view: View) {
         val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
-        val lat = preferences.getFloat("latitude", 10F)
-        val lon = preferences.getFloat("longitude", 76F)
+        val lat = preferences.getFloat("latitude", 10.235684F)
+        val lon = preferences.getFloat("longitude", 76.547960F)
         when (view.id) {
             R.id.VolunteerSubmitButton -> {
                 presenter.register(nameInput.text.toString(), phoneInput.text.toString(), lat, lon)
