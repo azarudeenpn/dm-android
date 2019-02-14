@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(i)
             }
             R.id.Main_ICButton -> {
-                val i = Intent(this, VolunteerActivity::class.java)
+                val i = Intent(this, Informationcentre::class.java)
                 startActivity(i)
             }
         }
