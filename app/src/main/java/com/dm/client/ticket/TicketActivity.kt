@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.dm.client.CompassActivity
 import com.dm.client.R
 import java.util.*
 
@@ -70,7 +71,8 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
                 startActivity(i)
             }
             R.id.Ticket_ProceedButton -> {
-                Toast.makeText(this, "Proceed Button is clicked", Toast.LENGTH_LONG).show()
+                val i = Intent(this, CompassActivity::class.java)
+                startActivity(i)
             }
         }
     }
