@@ -64,7 +64,8 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
     }
 
     override fun onAcceptSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val i = Intent(this, CompassActivity::class.java)
+        startActivity(i)
     }
 
     fun buttonClick(view: View) {
