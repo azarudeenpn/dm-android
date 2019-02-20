@@ -10,6 +10,7 @@ import com.dm.client.services.EndPoints
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class TicketPresenter(private val context: Context, private val ui: Contract) {
 
@@ -48,14 +49,14 @@ class TicketPresenter(private val context: Context, private val ui: Contract) {
     }
 
     fun acceptRequest(volPhone: String, vicPhone: String) {
-        val acceptedRequest = StringRequest(
+        val acceptedRequest = object: StringRequest(
             Request.Method.POST,
             "http://${EndPoints().hostname}/victim/request/accept",
             Response.Listener { response ->
                 run {
                     val result = JSONObject(response)
                     if(result["success"] as Boolean){
-
+                        ui.onAcceptSuccess()
                     }
                     else{
                         TODO("Error code is not set, might need to delete the SharedPreferences")
@@ -65,7 +66,14 @@ class TicketPresenter(private val context: Context, private val ui: Contract) {
             },
             Response.ErrorListener {
                 ui.onNetworkError()
-            })
+            }){
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["volphone"] = volPhone
+                params["vicphone"] = vicPhone
+                return params
+            }
+        }
         Volley.newRequestQueue(context).add(acceptedRequest)
     }
 
