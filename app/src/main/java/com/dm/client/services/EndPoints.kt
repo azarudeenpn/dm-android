@@ -1,6 +1,6 @@
 package com.dm.client.services
 
 class EndPoints {
-    //val hostname = "192.168.0.100:8000"
-    val hostname = "192.168.0.3:8000"
+    val hostname = "192.168.0.5:8000"
+    //val hostname = "139.59.43.100:8383"
 }

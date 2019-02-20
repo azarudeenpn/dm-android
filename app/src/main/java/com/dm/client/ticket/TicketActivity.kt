@@ -1,5 +1,6 @@
 package com.dm.client.ticket
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -22,8 +23,8 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
     private var lat = 10f
     private var lon = 76f
 
-    private var volPhone = ""
     private var vicPhone = ""
+    private var volPhone = ""
 
 
 
@@ -37,8 +38,12 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
         timeView = findViewById(R.id.Ticket_TimeView)
 
         presenter = TicketPresenter(this, this)
-        volPhone = intent.getStringExtra("phone")
-        presenter.expand(volPhone)
+        this.vicPhone = intent.getStringExtra("phone")
+
+        val preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+        this.volPhone = preferences.getString("phone", null)!!
+
+        presenter.expand(this.vicPhone)
     }
 
     override fun onNetworkError() {
@@ -57,6 +62,10 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
 
     }
 
+    override fun onAcceptSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     fun buttonClick(view: View) {
         when (view.id) {
             R.id.Ticket_MapButton -> {
@@ -71,6 +80,7 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
             }
             R.id.Ticket_ProceedButton -> {
                 Toast.makeText(this, "Proceed Button is clicked", Toast.LENGTH_LONG).show()
+                presenter.acceptRequest(volPhone, vicPhone)
             }
         }
     }

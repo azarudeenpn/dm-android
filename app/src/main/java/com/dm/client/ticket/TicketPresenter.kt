@@ -47,17 +47,39 @@ class TicketPresenter(private val context: Context, private val ui: Contract) {
         Volley.newRequestQueue(context).add(expandRequest)
     }
 
-    fun acceptRequest(volPhone: String, vicPhone: String){
-        val acceptedRequest = StringRequest(Request.Method.POST,"${EndPoints().hostname}/victim/request/accept", Response.Listener {
+    fun acceptRequest(volPhone: String, vicPhone: String) {
+        val acceptedRequest = StringRequest(
+            Request.Method.POST,
+            "http://${EndPoints().hostname}/victim/request/accept",
+            Response.Listener { response ->
+                run {
+                    val result = JSONObject(response)
+                    if(result["success"] as Boolean){
 
-        }, Response.ErrorListener {
+                    }
+                    else{
+                        TODO("Error code is not set, might need to delete the SharedPreferences")
+                    }
+                }
 
-        })
+            },
+            Response.ErrorListener {
+                ui.onNetworkError()
+            })
         Volley.newRequestQueue(context).add(acceptedRequest)
     }
 
     interface Contract {
         fun onNetworkError()
-        fun onSuccess(name: String, phone: String, place: String, lat: Double, lon: Double, dateString: String, timeString: String)
+        fun onSuccess(
+            name: String,
+            phone: String,
+            place: String,
+            lat: Double,
+            lon: Double,
+            dateString: String,
+            timeString: String
+        )
+        fun onAcceptSuccess()
     }
 }
