@@ -60,10 +60,15 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
         this.lat = lat.toFloat()
         this.lon = lon.toFloat()
         this.vicPhone = phone
-
     }
 
     override fun onAcceptSuccess() {
+        val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+        credentials.edit().apply{
+            putBoolean("isAccepted", true)
+            putString("vicphone", vicPhone)
+
+        }.apply()
         val i = Intent(this, CompassActivity::class.java)
         startActivity(i)
     }

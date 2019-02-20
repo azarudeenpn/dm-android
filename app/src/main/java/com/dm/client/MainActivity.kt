@@ -85,8 +85,20 @@ class MainActivity : AppCompatActivity() {
                 val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
                 if (credentials.contains("isVolunteer")) {
                     if (credentials.getBoolean("isVolunteer", false)) {
-                        val i = Intent(this, VolunteerActivity::class.java)
-                        startActivity(i)
+
+                        if (credentials.contains("isAccepted")) {
+                            if (credentials.getBoolean("isAccepted", false)) {
+                                val i = Intent(this, CompassActivity::class.java)
+                                startActivity(i)
+                            } else {
+                                val i = Intent(this, VolunteerActivity::class.java)
+                                startActivity(i)
+                            }
+
+                        } else {
+                            val i = Intent(this, VolunteerActivity::class.java)
+                            startActivity(i)
+                        }
                     } else {
                         val i = Intent(this, VictimActivity::class.java)
                         startActivity(i)
