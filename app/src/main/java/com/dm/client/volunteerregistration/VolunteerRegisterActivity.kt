@@ -44,7 +44,7 @@ class VolunteerRegisterActivity : AppCompatActivity(), VolunteerRegisterPresente
         val preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE)
         preferences.edit().apply {
             putBoolean("isVolunteer", true)
-            putString("phone", phone)
+            putString("phone", "+91$phone")
         }.apply()
         val i = Intent(this, VolunteerActivity::class.java)
         startActivity(i)
