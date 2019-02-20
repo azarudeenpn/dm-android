@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.dm.client.VictimTicket
+import com.dm.client.data.VictimTicket
 import com.dm.client.services.EndPoints
 import org.json.JSONArray
 import org.json.JSONObject

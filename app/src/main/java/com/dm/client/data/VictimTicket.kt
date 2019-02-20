@@ -1,4 +1,4 @@
-package com.dm.client
+package com.dm.client.data
 
 data class VictimTicket(
     val name: String,

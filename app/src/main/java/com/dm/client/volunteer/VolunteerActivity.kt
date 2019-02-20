@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.dm.client.MainActivity
 import com.dm.client.R
-import com.dm.client.VictimTicket
+import com.dm.client.data.VictimTicket
 
 class VolunteerActivity : AppCompatActivity(), VolunteerPresenter.Contract {
 

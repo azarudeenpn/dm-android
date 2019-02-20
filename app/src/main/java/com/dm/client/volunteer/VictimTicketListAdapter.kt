@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.dm.client.R
-import com.dm.client.VictimTicket
+import com.dm.client.data.VictimTicket
 import com.dm.client.ticket.TicketActivity
 import java.util.*
 
