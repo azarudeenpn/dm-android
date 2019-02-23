@@ -2,24 +2,29 @@ package com.dm.client
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.dm.client.victimregistration.VictimRegisterActivity
 import com.dm.client.volunteer.VolunteerActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 
 class MainActivity : AppCompatActivity() {
 
     private val PERMISSIONREQUEST = 1251
+    private val LOCATIONSETTINGREQUEST = 2213
 
     private lateinit var locationClient: FusedLocationProviderClient
 
@@ -29,8 +34,9 @@ class MainActivity : AppCompatActivity() {
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
         //Checking weather location is enabled.
-        if (isLocationEnabled())
+        if (isLocationEnabled()){
             getLocation()
+        }
         else
             openPermissionPrompt()
     }
@@ -67,42 +73,73 @@ class MainActivity : AppCompatActivity() {
     //Currently only last location is used. modify this to use getting location updates.
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-        locationClient.lastLocation.addOnSuccessListener { location ->
-            run {
-                val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
-                if (location != null) {
-                    //Written the location to android preference
-                    preferences.edit().apply {
-                        putFloat("latitude", location.latitude.toFloat())
-                        putFloat("longitude", location.longitude.toFloat())
-                    }.apply()
-                } else {
-                    preferences.edit().apply {
-                        putFloat("latitude", 10.235684f)
-                        putFloat("longitude", 76.54796f)
-                    }.apply()
-                }
-                val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
-                if (credentials.contains("isVolunteer")) {
-                    if (credentials.getBoolean("isVolunteer", false)) {
 
-                        if (credentials.contains("isAccepted")) {
-                            if (credentials.getBoolean("isAccepted", false)) {
-                                val i = Intent(this, CompassActivity::class.java)
-                                startActivity(i)
+        val locationRequest = LocationRequest().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            numUpdates = 10
+            interval = 5000
+            fastestInterval = 2500
+
+        }
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest!!)
+        val client: SettingsClient = LocationServices.getSettingsClient(this)
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+        task.addOnSuccessListener {
+            //everything is OK
+            locationClient.requestLocationUpdates(locationRequest, object : LocationCallback(){
+                override fun onLocationResult(locationResult: LocationResult?) {
+                   locationResult ?: return
+                    for(location in locationResult.locations){
+                        Log.v("dm", location.toString())
+                        Toast.makeText(this@MainActivity, location.toString(), Toast.LENGTH_SHORT).show()
+
+                      /*  val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
+                        if (location != null) {
+                            //Written the location to android preference
+                            preferences.edit().apply {
+                                putFloat("latitude", location.latitude.toFloat())
+                                putFloat("longitude", location.longitude.toFloat())
+                            }.apply()
+                        } else {
+                            preferences.edit().apply {
+                                putFloat("latitude", 10.235684f)
+                                putFloat("longitude", 76.54796f)
+                            }.apply()
+                        }
+                        val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+                        if (credentials.contains("isVolunteer")) {
+                            if (credentials.getBoolean("isVolunteer", false)) {
+
+                                if (credentials.contains("isAccepted")) {
+                                    if (credentials.getBoolean("isAccepted", false)) {
+                                        val i = Intent(this@MainActivity, CompassActivity::class.java)
+                                        startActivity(i)
+                                    } else {
+                                        val i = Intent(this@MainActivity, VolunteerActivity::class.java)
+                                        startActivity(i)
+                                    }
+
+                                } else {
+                                    val i = Intent(this@MainActivity, VolunteerActivity::class.java)
+                                    startActivity(i)
+                                }
                             } else {
-                                val i = Intent(this, VolunteerActivity::class.java)
+                                val i = Intent(this@MainActivity, VictimActivity::class.java)
                                 startActivity(i)
                             }
-
-                        } else {
-                            val i = Intent(this, VolunteerActivity::class.java)
-                            startActivity(i)
-                        }
-                    } else {
-                        val i = Intent(this, VictimActivity::class.java)
-                        startActivity(i)
+                        }*/
                     }
+                }
+            }, null)
+        }
+        task.addOnFailureListener{exception ->
+            if(exception is ResolvableApiException){
+                try {
+                    exception.startResolutionForResult(this, LOCATIONSETTINGREQUEST)
+                }
+                catch (sendEx: IntentSender.SendIntentException){
+                    //Never mind.
+                    Log.v("dm", "hajf")
                 }
             }
         }
@@ -117,6 +154,14 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "App cannot function without permission", Toast.LENGTH_LONG).show()
                 }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            LOCATIONSETTINGREQUEST -> {
+                getLocation()
             }
         }
     }
