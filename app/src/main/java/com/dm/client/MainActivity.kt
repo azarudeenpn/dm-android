@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.dm.client.services.PeerToPeer
 import com.dm.client.victimregistration.VictimRegisterActivity
 import com.dm.client.volunteer.VolunteerActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
+        val i = Intent(this, PeerToPeer::class.java)
+        startService(i)
         //Checking weather location is enabled.
         if (isLocationEnabled()){
             getLocation()
