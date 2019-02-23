@@ -2,6 +2,8 @@ package com.dm.client
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import kotlin.math.atan2
 
 class Informationcentre : AppCompatActivity() {
 
@@ -12,6 +14,9 @@ class Informationcentre : AppCompatActivity() {
 
 
     }
-
-
 }
+
+
+
+
+
