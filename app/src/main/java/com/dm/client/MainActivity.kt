@@ -37,10 +37,9 @@ class MainActivity : AppCompatActivity() {
         val i = Intent(this, PeerToPeer::class.java)
         startService(i)
         //Checking weather location is enabled.
-        if (isLocationEnabled()){
+        if (isLocationEnabled()) {
             getLocation()
-        }
-        else
+        } else
             openPermissionPrompt()
     }
 
@@ -89,58 +88,57 @@ class MainActivity : AppCompatActivity() {
         val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
         task.addOnSuccessListener {
             //everything is OK
-            locationClient.requestLocationUpdates(locationRequest, object : LocationCallback(){
+            locationClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult?) {
-                   locationResult ?: return
-                    for(location in locationResult.locations){
+                    locationResult ?: return
+                    for (location in locationResult.locations) {
                         Log.v("dm", location.toString())
                         Toast.makeText(this@MainActivity, location.toString(), Toast.LENGTH_SHORT).show()
 
-                      /*  val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
-                        if (location != null) {
-                            //Written the location to android preference
-                            preferences.edit().apply {
-                                putFloat("latitude", location.latitude.toFloat())
-                                putFloat("longitude", location.longitude.toFloat())
-                            }.apply()
-                        } else {
-                            preferences.edit().apply {
-                                putFloat("latitude", 10.235684f)
-                                putFloat("longitude", 76.54796f)
-                            }.apply()
-                        }
-                        val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
-                        if (credentials.contains("isVolunteer")) {
-                            if (credentials.getBoolean("isVolunteer", false)) {
+                        /*  val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
+                          if (location != null) {
+                              //Written the location to android preference
+                              preferences.edit().apply {
+                                  putFloat("latitude", location.latitude.toFloat())
+                                  putFloat("longitude", location.longitude.toFloat())
+                              }.apply()
+                          } else {
+                              preferences.edit().apply {
+                                  putFloat("latitude", 10.235684f)
+                                  putFloat("longitude", 76.54796f)
+                              }.apply()
+                          }
+                          val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+                          if (credentials.contains("isVolunteer")) {
+                              if (credentials.getBoolean("isVolunteer", false)) {
 
-                                if (credentials.contains("isAccepted")) {
-                                    if (credentials.getBoolean("isAccepted", false)) {
-                                        val i = Intent(this@MainActivity, CompassActivity::class.java)
-                                        startActivity(i)
-                                    } else {
-                                        val i = Intent(this@MainActivity, VolunteerActivity::class.java)
-                                        startActivity(i)
-                                    }
+                                  if (credentials.contains("isAccepted")) {
+                                      if (credentials.getBoolean("isAccepted", false)) {
+                                          val i = Intent(this@MainActivity, CompassActivity::class.java)
+                                          startActivity(i)
+                                      } else {
+                                          val i = Intent(this@MainActivity, VolunteerActivity::class.java)
+                                          startActivity(i)
+                                      }
 
-                                } else {
-                                    val i = Intent(this@MainActivity, VolunteerActivity::class.java)
-                                    startActivity(i)
-                                }
-                            } else {
-                                val i = Intent(this@MainActivity, VictimActivity::class.java)
-                                startActivity(i)
-                            }
-                        }*/
+                                  } else {
+                                      val i = Intent(this@MainActivity, VolunteerActivity::class.java)
+                                      startActivity(i)
+                                  }
+                              } else {
+                                  val i = Intent(this@MainActivity, VictimActivity::class.java)
+                                  startActivity(i)
+                              }
+                          }*/
                     }
                 }
             }, null)
         }
-        task.addOnFailureListener{exception ->
-            if(exception is ResolvableApiException){
+        task.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
                 try {
                     exception.startResolutionForResult(this, LOCATIONSETTINGREQUEST)
-                }
-                catch (sendEx: IntentSender.SendIntentException){
+                } catch (sendEx: IntentSender.SendIntentException) {
                     //Never mind.
                     Log.v("dm", "hajf")
                 }
@@ -162,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when(requestCode){
+        when (requestCode) {
             LOCATIONSETTINGREQUEST -> {
                 getLocation()
             }
