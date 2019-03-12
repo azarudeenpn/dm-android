@@ -6,10 +6,9 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 
 class CompassActivity : AppCompatActivity(), SensorEventListener {
 

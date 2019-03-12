@@ -2,21 +2,18 @@ package com.dm.client
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.dm.client.services.PeerToPeer
 import com.dm.client.victimregistration.VictimRegisterActivity
-import com.dm.client.volunteer.VolunteerActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -34,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
+
         val i = Intent(this, PeerToPeer::class.java)
         startService(i)
         //Checking weather location is enabled.

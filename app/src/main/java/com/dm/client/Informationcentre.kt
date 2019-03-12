@@ -1,8 +1,9 @@
 package com.dm.client
 
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.atan2
 
 class Informationcentre : AppCompatActivity() {
