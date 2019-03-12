@@ -52,6 +52,10 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
         startActivity(i)
     }
 
+    override fun onNoNetwork() {
+        Toast.makeText(this, "NO Network, going on P2P Mode", Toast.LENGTH_LONG).show()
+    }
+
     fun victimRegistrationButtonClick(view: View) {
         when (view.id) {
             R.id.VictimSubmitButton -> {

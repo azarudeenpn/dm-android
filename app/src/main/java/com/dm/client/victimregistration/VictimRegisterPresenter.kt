@@ -42,7 +42,7 @@ class VictimRegisterPresenter(private val ui: Contract, private val context: Con
                     }
                 },
                 Response.ErrorListener {
-                    Toast.makeText(context, "Unable to connect to the network", Toast.LENGTH_LONG).show()
+                    ui.onNoNetwork()
                 }) {
                 override fun getParams(): MutableMap<String, String> {
                     val params = HashMap<String, String>()
@@ -65,5 +65,6 @@ class VictimRegisterPresenter(private val ui: Contract, private val context: Con
         fun onLocationError(error: String)
         fun onPhoneError(error: String)
         fun onSuccess(phone: String)
+        fun onNoNetwork()
     }
 }
