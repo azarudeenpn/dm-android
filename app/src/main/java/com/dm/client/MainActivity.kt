@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.dm.client.informationcentre.InformationCentreActivity
 import com.dm.client.services.PeerToPeer
 import com.dm.client.victimregistration.VictimRegisterActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
@@ -176,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(i)
             }
             R.id.Main_ICButton -> {
-                val i = Intent(this, Informationcentre::class.java)
+                val i = Intent(this, InformationCentreActivity::class.java)
                 startActivity(i)
             }
         }
