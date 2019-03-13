@@ -20,7 +20,6 @@ class InformationCentreActivity : AppCompatActivity() {
         Toast.makeText(this, angle.toString(), Toast.LENGTH_LONG).show()
     }
 
-
 }
 
 
