@@ -36,7 +36,7 @@ class CompassActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        Log.v("dm",event!!.values[0].toString())
+        Log.v("dm", event!!.values[0].toString())
         compassView.rotation = 360 - event.values[0]
     }
 

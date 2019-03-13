@@ -38,6 +38,7 @@ class VolunteerPresenter(private val context: Context, private val ui: Contract)
                             jsonItem.getDouble("longitude").toFloat(),
                             jsonItem.getDouble("distance").toFloat(),
                             jsonItem.getInt("timeTaken")
+
                         )
                         list.add(item)
                     }
