@@ -48,7 +48,7 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
             putString("phone", "+91$phone")
         }.apply()
         Toast.makeText(this, "We got your request, a volunteer will contact you soon", Toast.LENGTH_LONG).show()
-        val i = Intent(this,VictimActivity::class.java)
+        val i = Intent(this, VictimActivity::class.java)
         startActivity(i)
     }
 
