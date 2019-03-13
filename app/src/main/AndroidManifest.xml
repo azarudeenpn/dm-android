@@ -15,7 +15,7 @@
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".CompassActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Informationcentre" android:screenOrientation="portrait">
+        <activity android:name=".informationcentre.InformationCentreActivity">
         </activity>
         <activity android:name=".VictimActivity" android:screenOrientation="portrait">
         </activity>

@@ -1,7 +1,5 @@
 package com.dm.client
 
-import android.widget.Toast
-import com.dm.client.volunteer.VolunteerPresenter
 import kotlin.math.PI
 import kotlin.math.atan2
 
