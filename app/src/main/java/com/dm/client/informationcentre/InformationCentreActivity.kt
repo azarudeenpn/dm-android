@@ -1,11 +1,12 @@
-package com.dm.client
+package com.dm.client.informationcentre
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import kotlin.math.atan2
+import com.dm.client.CompassDirection
+import com.dm.client.R
 
-class Informationcentre : AppCompatActivity() {
+class InformationCentreActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
