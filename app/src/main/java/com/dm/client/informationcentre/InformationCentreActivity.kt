@@ -1,10 +1,12 @@
 package com.dm.client.informationcentre
 
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.dm.client.CompassDirection
 import com.dm.client.R
+import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.atan2
 
 class InformationCentreActivity : AppCompatActivity() {
 

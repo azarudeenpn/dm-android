@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:background="@drawable/bg_main_ic_button"
+                                             android:padding="10dp"
+>
+    <TextView
+            android:id="@+id/Date_Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12-05-2018 12:00PM"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/News_Headline"
+
+    />
+
+    <TextView
+            android:id="@+id/News_Headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dam opens at 6:30"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/Date_Time"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/News_Text"
+    />
+
+    <TextView
+            android:id="@+id/News_Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae lacus vel magna euismod tempor. Mauris venenatis odio in imperdiet bibendum. Donec posuere magna quis pellentesque iaculis."
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@+id/News_Headline"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+    />
+
+    <view
+            android:id="@+id/Priority_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circle_priority_green"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+    />
+
+</android.support.constraint.ConstraintLayout>

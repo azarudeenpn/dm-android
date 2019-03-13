@@ -2,11 +2,11 @@ package com.dm.client.volunteerregistration
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.dm.client.R
 import com.dm.client.volunteer.VolunteerActivity
 

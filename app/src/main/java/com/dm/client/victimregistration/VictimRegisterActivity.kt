@@ -3,10 +3,10 @@ package com.dm.client.victimregistration
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.dm.client.R
 import com.dm.client.VictimActivity
 
@@ -50,6 +50,10 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
         Toast.makeText(this, "We got your request, a volunteer will contact you soon", Toast.LENGTH_LONG).show()
         val i = Intent(this,VictimActivity::class.java)
         startActivity(i)
+    }
+
+    override fun onNoNetwork() {
+        Toast.makeText(this, "NO Network, going on P2P Mode", Toast.LENGTH_LONG).show()
     }
 
     fun victimRegistrationButtonClick(view: View) {

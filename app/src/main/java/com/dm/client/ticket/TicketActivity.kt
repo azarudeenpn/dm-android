@@ -3,11 +3,11 @@ package com.dm.client.ticket
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.dm.client.CompassActivity
 import com.dm.client.R
 import java.util.*
