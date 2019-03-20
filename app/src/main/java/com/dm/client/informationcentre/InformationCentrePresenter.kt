@@ -35,7 +35,7 @@ class InformationCentrePresenter(private val context: Context, private val ui: C
                     ui.onListReady(list)
                 }
 
-                Toast.makeText(context, response, Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, response, Toast.LENGTH_LONG).show()
             }
 
         }, Response.ErrorListener {
