@@ -2,12 +2,14 @@ package com.dm.client
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.IntentSender
+import android.content.*
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.wifi.p2p.WifiP2pManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowContentFrameStats
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -26,12 +28,18 @@ class MainActivity : AppCompatActivity() {
     private val LOCATIONSETTINGREQUEST = 2213
 
     private lateinit var locationClient: FusedLocationProviderClient
+    private lateinit var channel: WifiP2pManager.Channel
+    private lateinit var manager: WifiP2pManager
+    private val filters = IntentFilter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
+        manager = getSystemService(Context.WIFI_P2P_SERVICE) as WifiP2pManager
+        channel = manager.initialize(this, mainLooper, null)
+
 
         val i = Intent(this, PeerToPeer::class.java)
         startService(i)
@@ -144,7 +152,39 @@ class MainActivity : AppCompatActivity() {
                 val i = Intent(this, InformationCentreActivity::class.java)
                 startActivity(i)
             }
+            R.id.Main_P2PTestButton -> {
+                val br: BroadcastReceiver = WifiBroadCast(manager, channel, this)
+                filters.apply {
+                    addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)
+                    addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)
+                    addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
+                    addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)
+                }
+                registerReceiver(br, filters)
+
+                manager.discoverPeers(channel, object: WifiP2pManager.ActionListener{
+                    override fun onSuccess() {
+                        //Toast.makeText(this@MainActivity, "onSuccess() is triggered", Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onFailure(reason: Int) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                })
+            }
         }
+
+    }
+
+    fun wifiNotEnabled(state: Int, wifiEnabledState: Int){
+        if(state == wifiEnabledState){
+            Toast.makeText(this, "Wifi is enabled", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    public override fun onResume() {
+        super.onResume()
 
     }
 
