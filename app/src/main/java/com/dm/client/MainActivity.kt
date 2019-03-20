@@ -93,42 +93,6 @@ class MainActivity : AppCompatActivity() {
                     for (location in locationResult.locations) {
                         Log.v("dm", location.toString())
                         Toast.makeText(this@MainActivity, location.toString(), Toast.LENGTH_SHORT).show()
-
-                        /*  val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
-                          if (location != null) {
-                              //Written the location to android preference
-                              preferences.edit().apply {
-                                  putFloat("latitude", location.latitude.toFloat())
-                                  putFloat("longitude", location.longitude.toFloat())
-                              }.apply()
-                          } else {
-                              preferences.edit().apply {
-                                  putFloat("latitude", 10.235684f)
-                                  putFloat("longitude", 76.54796f)
-                              }.apply()
-                          }
-                          val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
-                          if (credentials.contains("isVolunteer")) {
-                              if (credentials.getBoolean("isVolunteer", false)) {
-
-                                  if (credentials.contains("isAccepted")) {
-                                      if (credentials.getBoolean("isAccepted", false)) {
-                                          val i = Intent(this@MainActivity, CompassActivity::class.java)
-                                          startActivity(i)
-                                      } else {
-                                          val i = Intent(this@MainActivity, VolunteerActivity::class.java)
-                                          startActivity(i)
-                                      }
-
-                                  } else {
-                                      val i = Intent(this@MainActivity, VolunteerActivity::class.java)
-                                      startActivity(i)
-                                  }
-                              } else {
-                                  val i = Intent(this@MainActivity, VictimActivity::class.java)
-                                  startActivity(i)
-                              }
-                          }*/
                     }
                 }
             }, null)
