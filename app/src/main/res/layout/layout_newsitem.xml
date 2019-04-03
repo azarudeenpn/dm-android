@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="12-05-2018"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Dam opens at 6:30"
             android:textColor="@android:color/white"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/Date_Time"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -50,8 +50,8 @@
 
     <View
             android:id="@+id/Priority_Button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:background="@drawable/bg_circle_priority_green"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

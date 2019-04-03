@@ -54,6 +54,7 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
 
     override fun onNoNetwork() {
         Toast.makeText(this, "NO Network, going on P2P Mode", Toast.LENGTH_LONG).show()
+
     }
 
     fun victimRegistrationButtonClick(view: View) {
