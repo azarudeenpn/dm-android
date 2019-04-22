@@ -21,6 +21,7 @@ import com.dm.client.volunteerregistration.VolunteerRegisterActivity
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -164,11 +165,11 @@ class MainActivity : AppCompatActivity() {
 
                 manager.discoverPeers(channel, object: WifiP2pManager.ActionListener{
                     override fun onSuccess() {
-                        //Toast.makeText(this@MainActivity, "onSuccess() is triggered", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity, "onSuccess() is triggered", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onFailure(reason: Int) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw Exception("Custom exception cannot start Wifi Direct")
                     }
 
                 })
