@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bluelinelabs.logansquare.LoganSquare
 import com.dm.client.informationcentre.InformationCentreActivity
 import com.dm.client.services.PeerToPeer
 import com.dm.client.victimregistration.VictimRegisterActivity
@@ -21,9 +22,16 @@ import com.dm.client.volunteerregistration.VolunteerRegisterActivity
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.peak.salut.Callbacks.SalutCallback
+import com.peak.salut.Callbacks.SalutDataCallback
+import com.peak.salut.Callbacks.SalutDeviceCallback
+import com.peak.salut.Salut
+import com.peak.salut.SalutDataReceiver
+import com.peak.salut.SalutServiceData
 import java.lang.Exception
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SalutDataCallback {
+
 
     private val PERMISSIONREQUEST = 1251
     private val LOCATIONSETTINGREQUEST = 2213
@@ -163,7 +171,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 registerReceiver(br, filters)
 
-                manager.discoverPeers(channel, object: WifiP2pManager.ActionListener{
+                manager.discoverPeers(channel, object : WifiP2pManager.ActionListener {
                     override fun onSuccess() {
                         Toast.makeText(this@MainActivity, "onSuccess() is triggered", Toast.LENGTH_LONG).show()
                     }
@@ -174,12 +182,41 @@ class MainActivity : AppCompatActivity() {
 
                 })
             }
+            R.id.Main_P2PLibTestButton -> {
+                val dataReceiver = SalutDataReceiver(this, this)
+                val serviceData = SalutServiceData("test", 2421, "Aslam-4a")
+
+                val network = p2pSolut(dataReceiver, serviceData, SalutCallback {
+                    Toast.makeText(this, "Device not supported", Toast.LENGTH_LONG).show()
+                })
+
+
+                /*
+
+                network.startNetworkService {
+                    Toast.makeText(this, it.readableName, Toast.LENGTH_LONG).show()
+                }
+
+
+
+*/
+
+
+                network.discoverNetworkServices(SalutDeviceCallback {
+                    Toast.makeText(this, it.deviceName, Toast.LENGTH_LONG).show()
+                    network.registerWithHost(it, {
+                        Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show()
+                    }, {
+                        Toast.makeText(this, "Unable to connect", Toast.LENGTH_LONG).show()
+                    })
+                }, false)
+            }
         }
 
     }
 
-    fun wifiNotEnabled(state: Int, wifiEnabledState: Int){
-        if(state == wifiEnabledState){
+    fun wifiNotEnabled(state: Int, wifiEnabledState: Int) {
+        if (state == wifiEnabledState) {
             Toast.makeText(this, "Wifi is enabled", Toast.LENGTH_LONG).show()
         }
     }
@@ -189,4 +226,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onDataReceived(data: Any?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    class p2pSolut(
+        dataReceiver: SalutDataReceiver,
+        salutServiceData: SalutServiceData,
+        deviceNotSupported: SalutCallback
+    ) : Salut(dataReceiver, salutServiceData, deviceNotSupported) {
+
+        override fun serialize(o: Any?): String {
+            return LoganSquare.serialize(0);
+        }
+
+    }
 }
