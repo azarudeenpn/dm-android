@@ -37,17 +37,12 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
     private val LOCATIONSETTINGREQUEST = 2213
 
     private lateinit var locationClient: FusedLocationProviderClient
-    private lateinit var channel: WifiP2pManager.Channel
-    private lateinit var manager: WifiP2pManager
-    private val filters = IntentFilter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
-        manager = getSystemService(Context.WIFI_P2P_SERVICE) as WifiP2pManager
-        channel = manager.initialize(this, mainLooper, null)
 
 
         val i = Intent(this, PeerToPeer::class.java)
@@ -161,27 +156,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
                 val i = Intent(this, InformationCentreActivity::class.java)
                 startActivity(i)
             }
-            R.id.Main_P2PTestButton -> {
-                val br: BroadcastReceiver = WifiBroadCast(manager, channel, this)
-                filters.apply {
-                    addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)
-                    addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)
-                    addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
-                    addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)
-                }
-                registerReceiver(br, filters)
 
-                manager.discoverPeers(channel, object : WifiP2pManager.ActionListener {
-                    override fun onSuccess() {
-                        Toast.makeText(this@MainActivity, "onSuccess() is triggered", Toast.LENGTH_LONG).show()
-                    }
-
-                    override fun onFailure(reason: Int) {
-                        throw Exception("Custom exception cannot start Wifi Direct")
-                    }
-
-                })
-            }
             R.id.Main_P2PLibTestButton -> {
                 val dataReceiver = SalutDataReceiver(this, this)
                 val serviceData = SalutServiceData("test", 2421, "Aslam-4a")
