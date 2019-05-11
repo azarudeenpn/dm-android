@@ -190,11 +190,6 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
 
     }
 
-    fun wifiNotEnabled(state: Int, wifiEnabledState: Int) {
-        if (state == wifiEnabledState) {
-            Toast.makeText(this, "Wifi is enabled", Toast.LENGTH_LONG).show()
-        }
-    }
 
     public override fun onResume() {
         super.onResume()

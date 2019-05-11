@@ -1,36 +1,33 @@
 package com.dm.client.services
 
-import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
-import android.icu.text.RelativeDateTimeFormatter
-import android.os.AsyncTask
-import android.os.Handler
 import android.os.IBinder
-import android.util.Log
 import android.widget.Toast
 import com.android.volley.NetworkResponse
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.dm.client.database.Request
 import com.dm.client.database.RequestDatabase
+import com.peak.salut.Callbacks.SalutCallback
+import com.peak.salut.Callbacks.SalutDataCallback
+import com.peak.salut.Salut
+import com.peak.salut.SalutDataReceiver
+import com.peak.salut.SalutServiceData
 import org.json.JSONArray
 import org.json.JSONObject
-import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-class PeerToPeer : Service() {
+class PeerToPeer : Service(), SalutDataCallback {
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         val db = RequestDatabase.getInstance(this)
 
+        //For getting the
         val timer = Timer()
-
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 val res = db?.requestDao()?.getAll()
@@ -83,6 +80,19 @@ class PeerToPeer : Service() {
             }
         }, 0, 1000 * 30)
 
+        val dataReceiver = SalutDataReceiver(this, this)
+        val serviceData = SalutServiceData("disaster", 50902, "management")
+
+        val network = P2pSalut(dataReceiver, serviceData, SalutCallback {
+            Toast.makeText(this@PeerToPeer, "This device does not support Peer2Peer", Toast.LENGTH_LONG).show()
+        })
+
+        network.startNetworkService {
+            //When a device is connected
+            Toast.makeText(this@PeerToPeer, it.macAddress, Toast.LENGTH_LONG).show()
+
+        }
+
         return START_STICKY
     }
 
@@ -94,4 +104,18 @@ class PeerToPeer : Service() {
     override fun onDestroy() {
         Toast.makeText(this, "Peer2Peer Service is destroyed", Toast.LENGTH_LONG).show()
     }
+
+    //for Receiving the data
+    override fun onDataReceived(data: Any?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    class P2pSalut(dataReceiver: SalutDataReceiver, serviceData: SalutServiceData, deviceNotSupported: SalutCallback) :
+        Salut(dataReceiver, serviceData, deviceNotSupported) {
+        override fun serialize(o: Any?): String {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+    }
+
 }

@@ -22,8 +22,7 @@ class NewsListAdapter(val list: ArrayList<NewsItem>) : RecyclerView.Adapter<News
         holder.title.text = list[position].heading
         holder.body.text = list[position].body
         holder.date.text = list[position].creationTime
-        val priority = list[position].priority
-        when (priority) {
+        when (list[position].priority) {
             1 -> holder.prior.setBackgroundResource(R.drawable.bg_circle_priority_green)
             2 -> holder.prior.setBackgroundResource(R.drawable.bg_circle_priority_red)
         }
