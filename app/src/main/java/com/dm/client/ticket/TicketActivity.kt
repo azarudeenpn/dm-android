@@ -70,6 +70,9 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
 
         }.apply()
         val i = Intent(this, CompassActivity::class.java)
+        i.putExtra("phone", vicPhone)
+        i.putExtra("lat", lat)
+        i.putExtra("lon", lon)
         startActivity(i)
     }
 
