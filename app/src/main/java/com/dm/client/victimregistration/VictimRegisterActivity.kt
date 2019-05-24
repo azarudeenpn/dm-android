@@ -64,8 +64,8 @@ class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Cont
 
                 presenter.register(
                     nameInput.text.toString(), manualLocationInput.text.toString(),
-                    phoneInput.text.toString(), preferences.getFloat("latitude", 10.59956f)
-                    , preferences.getFloat("longitude", 76.465468f)
+                    phoneInput.text.toString(), preferences.getFloat("latitude", 10.054163f)
+                    , preferences.getFloat("longitude", 76.379449f)
                 )
             }
         }

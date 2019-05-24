@@ -28,6 +28,7 @@ import com.peak.salut.Callbacks.SalutDeviceCallback
 import com.peak.salut.Salut
 import com.peak.salut.SalutDataReceiver
 import com.peak.salut.SalutServiceData
+import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), SalutDataCallback {
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
         setContentView(R.layout.activity_main)
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
+
 
 
         val i = Intent(this, PeerToPeer::class.java)
@@ -104,7 +106,12 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
                     locationResult ?: return
                     for (location in locationResult.locations) {
                         Log.v("dm", location.toString())
-                        Toast.makeText(this@MainActivity, location.toString(), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this@MainActivity, location.toString(), Toast.LENGTH_SHORT).show()
+                        val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
+                        preferences.edit().apply {
+                            putFloat("latitude", location.latitude.toFloat())
+                            putFloat("longitude", location.longitude.toFloat())
+                        }.apply()
                     }
                 }
             }, null)
@@ -158,6 +165,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
             }
 
             R.id.Main_P2PLibTestButton -> {
+                /*
                 val dataReceiver = SalutDataReceiver(this, this)
                 val serviceData = SalutServiceData("test", 2421, "Aslam-4a")
 
@@ -184,7 +192,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
                     }, {
                         Toast.makeText(this, "Unable to connect", Toast.LENGTH_LONG).show()
                     })
-                }, false)
+                }, false)*/
             }
         }
 

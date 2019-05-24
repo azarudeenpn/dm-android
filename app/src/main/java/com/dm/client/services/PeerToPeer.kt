@@ -3,14 +3,18 @@ package com.dm.client.services
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import com.android.volley.NetworkResponse
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.bluelinelabs.logansquare.LoganSquare
 import com.dm.client.database.RequestDatabase
 import com.peak.salut.Callbacks.SalutCallback
 import com.peak.salut.Callbacks.SalutDataCallback
+import com.peak.salut.Callbacks.SalutDeviceCallback
 import com.peak.salut.Salut
 import com.peak.salut.SalutDataReceiver
 import com.peak.salut.SalutServiceData
@@ -81,18 +85,43 @@ class PeerToPeer : Service(), SalutDataCallback {
         }, 0, 1000 * 30)
 
         val dataReceiver = SalutDataReceiver(this, this)
-        val serviceData = SalutServiceData("disaster", 50902, "management")
+
+        val deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID).substring(10, 16)
+
+
+        Log.v("ets", deviceId)
+
+        val serviceData = SalutServiceData("dis", 2421, deviceId)
+
 
         val network = P2pSalut(dataReceiver, serviceData, SalutCallback {
             Toast.makeText(this@PeerToPeer, "This device does not support Peer2Peer", Toast.LENGTH_LONG).show()
         })
 
+
+
         network.startNetworkService {
             //When a device is connected
             Toast.makeText(this@PeerToPeer, it.macAddress, Toast.LENGTH_LONG).show()
+            val message = Message()
+            message.message = "toBeSendString"
+            network.sendToAllDevices(message) {
+               Log.e("DM", "unable to send the message")
+          }
 
         }
 
+
+       /* network.discoverNetworkServices(SalutDeviceCallback {
+            Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show()
+
+            network.registerWithHost(it, {
+                Toast.makeText(this, "Device Connected", Toast.LENGTH_LONG).show()
+            }, {
+                Toast.makeText(this, "Device Not Connected", Toast.LENGTH_LONG).show()
+            })
+        }, true)
+*/
         return START_STICKY
     }
 
@@ -107,13 +136,14 @@ class PeerToPeer : Service(), SalutDataCallback {
 
     //for Receiving the data
     override fun onDataReceived(data: Any?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.v("test", data.toString())
+        Toast.makeText(this, data.toString(), Toast.LENGTH_LONG).show()
     }
 
     class P2pSalut(dataReceiver: SalutDataReceiver, serviceData: SalutServiceData, deviceNotSupported: SalutCallback) :
         Salut(dataReceiver, serviceData, deviceNotSupported) {
         override fun serialize(o: Any?): String {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return LoganSquare.serialize(o)
         }
 
     }

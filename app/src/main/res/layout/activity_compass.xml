@@ -72,7 +72,7 @@
             android:id="@+id/Distance_View"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3.6 KM"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="40sp"
             android:textAlignment="center"
