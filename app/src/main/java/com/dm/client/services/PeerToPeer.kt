@@ -100,28 +100,28 @@ class PeerToPeer : Service(), SalutDataCallback {
 
 
 
-        network.startNetworkService {
-            //When a device is connected
-            Toast.makeText(this@PeerToPeer, it.macAddress, Toast.LENGTH_LONG).show()
-            val message = Message()
-            message.message = "toBeSendString"
-            network.sendToAllDevices(message) {
-               Log.e("DM", "unable to send the message")
-          }
+        network.startNetworkService({
+            Toast.makeText(this@PeerToPeer, "Device connected with address ${it.macAddress}", Toast.LENGTH_LONG).show()
+            network.sendToDevice(it, "Testing") {
+                Log.v("dm", "Unable to send the data")
+            }
+        }, {
+            Toast.makeText(this, "Network Service Started", Toast.LENGTH_LONG).show()
+        }, {
+            Toast.makeText(this, "Cannot Start Network Service", Toast.LENGTH_LONG).show()
+        })
 
-        }
+      /*   network.discoverNetworkServices(SalutDeviceCallback {
+             Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show()
 
-
-       /* network.discoverNetworkServices(SalutDeviceCallback {
-            Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show()
-
-            network.registerWithHost(it, {
-                Toast.makeText(this, "Device Connected", Toast.LENGTH_LONG).show()
-            }, {
-                Toast.makeText(this, "Device Not Connected", Toast.LENGTH_LONG).show()
-            })
-        }, true)
+             network.registerWithHost(it, {
+                 Toast.makeText(this, "Device Connected", Toast.LENGTH_LONG).show()
+             }, {
+                 Toast.makeText(this, "Device Not Connected", Toast.LENGTH_LONG).show()
+             })
+         }, true)
 */
+
         return START_STICKY
     }
 
@@ -143,6 +143,7 @@ class PeerToPeer : Service(), SalutDataCallback {
     class P2pSalut(dataReceiver: SalutDataReceiver, serviceData: SalutServiceData, deviceNotSupported: SalutCallback) :
         Salut(dataReceiver, serviceData, deviceNotSupported) {
         override fun serialize(o: Any?): String {
+            Log.v("dm", o.toString())
             return LoganSquare.serialize(o)
         }
 
