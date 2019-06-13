@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.dm.client.CompassActivity
+import com.dm.client.compass.CompassActivity
 import com.dm.client.R
 import java.util.*
 

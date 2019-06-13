@@ -17,11 +17,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CompassActivity" android:screenOrientation="portrait">
+        <activity android:name=".compass.CompassActivity" android:screenOrientation="portrait">
         </activity>
         <activity android:name=".informationcentre.InformationCentreActivity">
         </activity>
-        <activity android:name=".VictimActivity" android:screenOrientation="portrait">
+        <activity android:name=".victim.VictimActivity" android:screenOrientation="portrait">
         </activity>
         <activity android:name=".ticket.TicketActivity" android:screenOrientation="portrait">
         </activity>

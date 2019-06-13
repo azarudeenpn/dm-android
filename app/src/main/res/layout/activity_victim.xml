@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000000"
-        tools:context=".VictimActivity">
+        tools:context=".victim.VictimActivity">
 
     <TextView
             android:id="@+id/Victim_be_safe_label"
@@ -28,11 +28,9 @@
             android:background="@drawable/bg_main_ic_button"
             android:text="@string/logout"
             android:textColor="#ffffff"
-            android:onClick="logoutButtonClick"
-            app:layout_constraintLeft_toRightOf="@id/Volunteer_Label"
+            android:onClick="buttonClick"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/Volunteer_Label"
 
 
     />
@@ -61,20 +59,22 @@
             android:textSize="20sp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
+            android:onClick="buttonClick"
             app:layout_constraintTop_toBottomOf="@id/Victim_info_text_label"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/Main_ICButton"
+            app:layout_constraintBottom_toTopOf="@id/Victim_ICButton"
             android:background="@drawable/delete_button"
     />
 
     <Button
-            android:id="@+id/Main_ICButton"
+            android:id="@+id/Victim_ICButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/information_center"
             android:textColor="@android:color/white"
             android:background="@drawable/bg_main_ic_button"
+            android:onClick="buttonClick"
             app:layout_constraintBottom_toBottomOf="parent"
     />
 

@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dm.client.R
-import com.dm.client.VictimActivity
+import com.dm.client.victim.VictimActivity
 
 class VictimRegisterActivity : AppCompatActivity(), VictimRegisterPresenter.Contract {
 

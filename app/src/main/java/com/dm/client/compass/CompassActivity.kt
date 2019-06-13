@@ -1,7 +1,8 @@
-package com.dm.client
+package com.dm.client.compass
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -12,14 +13,17 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.dm.client.ticket.TicketActivity
+import com.dm.client.R
 import com.dm.client.volunteer.VolunteerActivity
 import java.util.*
 
-class CompassActivity : AppCompatActivity(), SensorEventListener {
+class CompassActivity : AppCompatActivity(), SensorEventListener, CompassPresenter.Contract {
+
 
     private lateinit var compassView: ImageView
     private lateinit var sensorManager: SensorManager
+    private lateinit var credentials: SharedPreferences
+    private lateinit var presenter: CompassPresenter
 
     private var sensor: Sensor? = null
 
@@ -31,6 +35,10 @@ class CompassActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compass)
+
+        credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+        presenter = CompassPresenter(this, this)
+
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
@@ -50,11 +58,12 @@ class CompassActivity : AppCompatActivity(), SensorEventListener {
         compassView.rotation = 360 - event.values[0]
     }
 
-    fun buttonClick(view:View){
-        when(view.id){
+    fun buttonClick(view: View) {
+        when (view.id) {
             R.id.EndTask_Button -> {
-                val i = Intent(this, VolunteerActivity::class.java)
-                startActivity(i)
+                val volPhone = credentials.getString("phone", null)
+                val vicPhone = credentials.getString("vicphone", null)
+                presenter.deleteAccept(volPhone, vicPhone)
             }
             R.id.Compass_PhoneButton -> {
                 val i = Intent(Intent.ACTION_DIAL)
@@ -63,8 +72,8 @@ class CompassActivity : AppCompatActivity(), SensorEventListener {
                 startActivity(i)
             }
             R.id.Compass_MapButton -> {
-                this.lat = intent.getFloatExtra("lat",10f)
-                this.lon= intent.getFloatExtra("lon",76f)
+                this.lat = intent.getFloatExtra("lat", 10f)
+                this.lon = intent.getFloatExtra("lon", 76f)
                 val uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", lat, lon)
                 val i = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                 startActivity(i)
@@ -73,4 +82,14 @@ class CompassActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    override fun onSuccess() {
+        credentials.edit().apply {
+            remove("isAccepted")
+            remove("vicphone")
+        }.apply()
+
+
+        val i = Intent(this, VolunteerActivity::class.java)
+        startActivity(i)
+    }
 }
