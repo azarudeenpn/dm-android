@@ -10,7 +10,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.dm.client"
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -34,6 +34,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha05'
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     def room_version = "2.1.0-alpha06"
 
