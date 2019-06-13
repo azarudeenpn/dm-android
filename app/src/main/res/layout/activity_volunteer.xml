@@ -28,7 +28,7 @@
             android:background="@drawable/bg_main_ic_button"
             android:text="@string/logout"
             android:textColor="#ffffff"
-            android:onClick="logoutButtonClick"
+            android:onClick="ButtonClick"
             app:layout_constraintLeft_toRightOf="@id/Volunteer_Label"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
