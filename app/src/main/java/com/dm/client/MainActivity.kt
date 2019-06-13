@@ -4,10 +4,13 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
+import android.provider.Telephony
+import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -17,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.bluelinelabs.logansquare.LoganSquare
 import com.dm.client.compass.CompassActivity
 import com.dm.client.informationcentre.InformationCentreActivity
+import com.dm.client.services.CompassListener
 import com.dm.client.services.PeerToPeer
 import com.dm.client.victim.VictimActivity
 import com.dm.client.victimregistration.VictimRegisterActivity
@@ -78,6 +82,17 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
         } else
             openPermissionPrompt()
 
+        val smsManager = SmsManager.getDefault()
+        val string = smsManager.divideMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiamc sit amet erat sapien. Pellentesque leo sem, mollis in nibh in, tincidunt maximus erat. Morbi facilisis ornare ante at rhoncus. Morbi elit felis, aliquet a consectetur vitae, sagittis quis ex. Cras malesuada odio diam, vitae suscipit elit mattis id. Donec dictum mollis purus pulvinar bibendum. Maecenas fringilla imperdiet dolor, eu vestibulum mauris faucibus id. Nam convallis nisl nisi, ac fermentum arcu porttitor sit amet.")
+
+        //SmsManager.getDefault().sendMultipartTextMessage("+919633116645", null, string, null, null);
+
+        val filter = IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)
+        val br = CompassListener()
+
+        registerReceiver(br, filter)
+
+
         val dataReceiver = SalutDataReceiver(this, this)
         val deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID).substring(10, 16)
         val serviceData = SalutServiceData("dis", 2421, deviceId)
@@ -85,7 +100,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
             Toast.makeText(this, "This device does not support Peer2Peer", Toast.LENGTH_LONG).show()
         })
 
-        /*   network.startNetworkService({
+/*           network.startNetworkService({
                Toast.makeText(this, "Device connected with address ${it.macAddress}", Toast.LENGTH_LONG).show()
                network.sendToDevice(it, "Testing the pee2peer service") {
                    Log.v("dm", "Unable to send the data")
@@ -95,7 +110,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
            }, {
                Toast.makeText(this, "Cannot Start Network Service", Toast.LENGTH_LONG).show()
            })
-   */
+
         network.discoverNetworkServices(SalutDeviceCallback {
             Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show()
 
@@ -104,7 +119,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
             }, {
                 Toast.makeText(this, "Device Not Connected", Toast.LENGTH_LONG).show()
             })
-        }, true)
+        }, true)*/
 
     }
 
