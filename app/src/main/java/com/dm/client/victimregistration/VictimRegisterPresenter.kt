@@ -57,7 +57,7 @@ class VictimRegisterPresenter(private val ui: Contract, private val context: Con
                     val creation = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"))
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     val formatted = creation.format(formatter)
-                    val req = com.dm.client.database.Request(0,"+91$phone",name,location,lat,lon,formatted)
+                    val req = com.dm.client.database.Request("+91$phone",name,location,lat,lon,formatted)
                     val task = @SuppressLint("StaticFieldLeak")
                     object : AsyncTask<com.dm.client.database.Request, Int, Int>() {
 
