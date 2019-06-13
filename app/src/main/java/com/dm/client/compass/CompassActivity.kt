@@ -12,9 +12,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.dm.client.CompassDirection
 import com.dm.client.R
 import com.dm.client.volunteer.VolunteerActivity
+import kotlinx.android.synthetic.*
 import java.util.*
 
 class CompassActivity : AppCompatActivity(), SensorEventListener, CompassPresenter.Contract {
@@ -30,6 +33,8 @@ class CompassActivity : AppCompatActivity(), SensorEventListener, CompassPresent
     private var vicPhone = ""
     private var lat = 10f
     private var lon = 76f
+
+    private var direction = CompassDirection()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +52,13 @@ class CompassActivity : AppCompatActivity(), SensorEventListener, CompassPresent
 
 
         compassView = findViewById(R.id.Compass_Compass)
+
+        val angle = direction.calc(10.053946F,76.379725F,10.053946F,76.379725F)
+
+        Toast.makeText(this,angle.toString(),Toast.LENGTH_LONG).show()
     }
+
+
 
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {

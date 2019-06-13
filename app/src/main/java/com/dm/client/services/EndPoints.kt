@@ -1,5 +1,5 @@
 package com.dm.client.services
 
 class EndPoints {
-    val hostname = "192.168.0.10:8000"
+    val hostname = "a2ac05a2.ngrok.io"
 }
