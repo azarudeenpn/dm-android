@@ -2,22 +2,25 @@ package com.dm.client
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.*
+import android.content.Context
+import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.net.ConnectivityManager
-import android.net.wifi.p2p.WifiP2pManager
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.view.WindowContentFrameStats
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bluelinelabs.logansquare.LoganSquare
+import com.dm.client.compass.CompassActivity
 import com.dm.client.informationcentre.InformationCentreActivity
 import com.dm.client.services.PeerToPeer
+import com.dm.client.victim.VictimActivity
 import com.dm.client.victimregistration.VictimRegisterActivity
+import com.dm.client.volunteer.VolunteerActivity
 import com.dm.client.volunteerregistration.VolunteerRegisterActivity
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -28,8 +31,6 @@ import com.peak.salut.Callbacks.SalutDeviceCallback
 import com.peak.salut.Salut
 import com.peak.salut.SalutDataReceiver
 import com.peak.salut.SalutServiceData
-import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), SalutDataCallback {
 
@@ -43,8 +44,30 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        locationClient = LocationServices.getFusedLocationProviderClient(this)
+        val credentials = getSharedPreferences("credentials", Context.MODE_PRIVATE)
+        if (credentials.contains("isVolunteer")) {
+            if (credentials.getBoolean("isVolunteer", false)) {
 
+                if (credentials.contains("isAccepted")) {
+                    if (credentials.getBoolean("isAccepted", false)) {
+                        val i = Intent(this@MainActivity, CompassActivity::class.java)
+                        startActivity(i)
+                    } else {
+                        val i = Intent(this@MainActivity, VolunteerActivity::class.java)
+                        startActivity(i)
+                    }
+
+                } else {
+                    val i = Intent(this@MainActivity, VolunteerActivity::class.java)
+                    startActivity(i)
+                }
+            } else {
+                val i = Intent(this@MainActivity, VictimActivity::class.java)
+                startActivity(i)
+            }
+        }
+
+        locationClient = LocationServices.getFusedLocationProviderClient(this)
 
 
         val i = Intent(this, PeerToPeer::class.java)
@@ -54,6 +77,35 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
             getLocation()
         } else
             openPermissionPrompt()
+
+        val dataReceiver = SalutDataReceiver(this, this)
+        val deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID).substring(10, 16)
+        val serviceData = SalutServiceData("dis", 2421, deviceId)
+        val network = PeerToPeer.P2pSalut(dataReceiver, serviceData, SalutCallback {
+            Toast.makeText(this, "This device does not support Peer2Peer", Toast.LENGTH_LONG).show()
+        })
+
+        /*   network.startNetworkService({
+               Toast.makeText(this, "Device connected with address ${it.macAddress}", Toast.LENGTH_LONG).show()
+               network.sendToDevice(it, "Testing the pee2peer service") {
+                   Log.v("dm", "Unable to send the data")
+               }
+           }, {
+               Toast.makeText(this, "Network Service Started", Toast.LENGTH_LONG).show()
+           }, {
+               Toast.makeText(this, "Cannot Start Network Service", Toast.LENGTH_LONG).show()
+           })
+   */
+        network.discoverNetworkServices(SalutDeviceCallback {
+            Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show()
+
+            network.registerWithHost(it, {
+                Toast.makeText(this, "Device Connected", Toast.LENGTH_LONG).show()
+            }, {
+                Toast.makeText(this, "Device Not Connected", Toast.LENGTH_LONG).show()
+            })
+        }, true)
+
     }
 
 
@@ -163,37 +215,6 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
                 val i = Intent(this, InformationCentreActivity::class.java)
                 startActivity(i)
             }
-
-            R.id.Main_P2PLibTestButton -> {
-                /*
-                val dataReceiver = SalutDataReceiver(this, this)
-                val serviceData = SalutServiceData("test", 2421, "Aslam-4a")
-
-                val network = p2pSolut(dataReceiver, serviceData, SalutCallback {
-                    Toast.makeText(this, "Device not supported", Toast.LENGTH_LONG).show()
-                })
-
-
-                /*
-
-                network.startNetworkService {
-                    Toast.makeText(this, it.readableName, Toast.LENGTH_LONG).show()
-                }
-
-
-
-*/
-
-
-                network.discoverNetworkServices(SalutDeviceCallback {
-                    Toast.makeText(this, it.deviceName, Toast.LENGTH_LONG).show()
-                    network.registerWithHost(it, {
-                        Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show()
-                    }, {
-                        Toast.makeText(this, "Unable to connect", Toast.LENGTH_LONG).show()
-                    })
-                }, false)*/
-            }
         }
 
     }
@@ -205,7 +226,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
     }
 
     override fun onDataReceived(data: Any?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, data.toString(), Toast.LENGTH_LONG).show()
     }
 
     class p2pSolut(
@@ -215,7 +236,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
     ) : Salut(dataReceiver, salutServiceData, deviceNotSupported) {
 
         override fun serialize(o: Any?): String {
-            return LoganSquare.serialize(0);
+            return LoganSquare.serialize(0)
         }
 
     }
