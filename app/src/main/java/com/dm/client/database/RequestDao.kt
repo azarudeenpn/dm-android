@@ -2,6 +2,7 @@ package com.dm.client.database
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
@@ -13,7 +14,7 @@ interface RequestDao {
     @Query("DELETE FROM Request")
     fun deleteAll()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg request: Request?)
 
 }
