@@ -83,13 +83,11 @@ class PeerToPeer : Service(), SalutDataCallback {
                 }
             }
         }, 0, 1000 * 30)
-
+/*
         val dataReceiver = SalutDataReceiver(this, this)
 
         val deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID).substring(10, 16)
 
-
-        Log.v("ets", deviceId)
 
         val serviceData = SalutServiceData("dis", 2421, deviceId)
 
@@ -102,16 +100,20 @@ class PeerToPeer : Service(), SalutDataCallback {
 
         network.startNetworkService({
             Toast.makeText(this@PeerToPeer, "Device connected with address ${it.macAddress}", Toast.LENGTH_LONG).show()
-            network.sendToDevice(it, "Testing") {
-                Log.v("dm", "Unable to send the data")
-            }
+
+            Toast.makeText(this@PeerToPeer, "Connection was successfull from 3S", Toast.LENGTH_LONG).show()
+
+//            Thread.sleep(1000)
+//            network.sendToDevice(it, "Testing the pee2peer service") {
+//                Log.v("dm", "Unable to send the data")
+//            }
         }, {
             Toast.makeText(this, "Network Service Started", Toast.LENGTH_LONG).show()
         }, {
             Toast.makeText(this, "Cannot Start Network Service", Toast.LENGTH_LONG).show()
         })
 
-      /*   network.discoverNetworkServices(SalutDeviceCallback {
+       network.discoverNetworkServices(SalutDeviceCallback {
              Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show()
 
              network.registerWithHost(it, {
@@ -119,8 +121,7 @@ class PeerToPeer : Service(), SalutDataCallback {
              }, {
                  Toast.makeText(this, "Device Not Connected", Toast.LENGTH_LONG).show()
              })
-         }, true)
-*/
+         }, true)*/
 
         return START_STICKY
     }
