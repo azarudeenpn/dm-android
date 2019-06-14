@@ -249,16 +249,15 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
         Toast.makeText(this, data.toString(), Toast.LENGTH_LONG).show()
     }
 
-    override fun onStop() {
+    override fun onDestroy() {
         unregisterReceiver(br)
-        super.onStop()
+
+        super.onDestroy()
     }
 
     fun sendMessage(){
 
         val db = RequestDatabase.getInstance(this)
-
-
 
         val task = @SuppressLint("StaticFieldLeak")
         object : AsyncTask<Request, Int, Int>() {

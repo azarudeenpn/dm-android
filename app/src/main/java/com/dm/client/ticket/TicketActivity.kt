@@ -21,8 +21,8 @@ class TicketActivity : AppCompatActivity(), TicketPresenter.Contract {
     private lateinit var dateView: TextView
     private lateinit var timeView: TextView
 
-    private var lat = 10f
-    private var lon = 76f
+    private var lat = 10.053946F
+    private var lon = 76.379725F
 
     private var vicPhone = ""
     private var volPhone = ""

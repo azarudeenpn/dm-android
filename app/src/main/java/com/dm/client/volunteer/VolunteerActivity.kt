@@ -26,8 +26,8 @@ class VolunteerActivity : AppCompatActivity(), VolunteerPresenter.Contract {
         presenter = VolunteerPresenter(this, this)
 
         val preferences = getSharedPreferences("location", Context.MODE_PRIVATE)
-        val lat = preferences.getFloat("latitude", 10.054054f)
-        val lon = preferences.getFloat("longitude", 76.38014f)
+        val lat = preferences.getFloat("latitude", 10.053946F)
+        val lon = preferences.getFloat("longitude", 76.379725F)
         presenter.getVictimTickets(lat, lon)
     }
 

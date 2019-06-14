@@ -83,8 +83,8 @@ class CompassActivity : AppCompatActivity(), SensorEventListener, CompassPresent
                 startActivity(i)
             }
             R.id.Compass_MapButton -> {
-                this.lat = intent.getFloatExtra("lat", 10f)
-                this.lon = intent.getFloatExtra("lon", 76f)
+                this.lat = intent.getFloatExtra("lat", 10.053946F)
+                this.lon = intent.getFloatExtra("lon", 76.379725F)
                 val uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", lat, lon)
                 val i = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                 startActivity(i)
