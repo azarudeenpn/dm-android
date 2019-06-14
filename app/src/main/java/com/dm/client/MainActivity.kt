@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.Settings
 import android.provider.Telephony
@@ -19,6 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bluelinelabs.logansquare.LoganSquare
 import com.dm.client.compass.CompassActivity
+import com.dm.client.database.Request
+import com.dm.client.database.RequestDatabase
 import com.dm.client.informationcentre.InformationCentreActivity
 import com.dm.client.services.CompassListener
 import com.dm.client.services.PeerToPeer
@@ -35,6 +38,8 @@ import com.peak.salut.Callbacks.SalutDeviceCallback
 import com.peak.salut.Salut
 import com.peak.salut.SalutDataReceiver
 import com.peak.salut.SalutServiceData
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), SalutDataCallback {
 
@@ -43,6 +48,7 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
     private val LOCATIONSETTINGREQUEST = 2213
 
     private lateinit var locationClient: FusedLocationProviderClient
+    private lateinit var br: CompassListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,15 +88,14 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
         } else
             openPermissionPrompt()
 
-        val smsManager = SmsManager.getDefault()
-        val string = smsManager.divideMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiamc sit amet erat sapien. Pellentesque leo sem, mollis in nibh in, tincidunt maximus erat. Morbi facilisis ornare ante at rhoncus. Morbi elit felis, aliquet a consectetur vitae, sagittis quis ex. Cras malesuada odio diam, vitae suscipit elit mattis id. Donec dictum mollis purus pulvinar bibendum. Maecenas fringilla imperdiet dolor, eu vestibulum mauris faucibus id. Nam convallis nisl nisi, ac fermentum arcu porttitor sit amet.")
-
-        //SmsManager.getDefault().sendMultipartTextMessage("+919633116645", null, string, null, null);
 
         val filter = IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)
-        val br = CompassListener()
+        br = CompassListener()
+
+        //  sendMessage()
 
         registerReceiver(br, filter)
+
 
 
         val dataReceiver = SalutDataReceiver(this, this)
@@ -242,6 +247,50 @@ class MainActivity : AppCompatActivity(), SalutDataCallback {
 
     override fun onDataReceived(data: Any?) {
         Toast.makeText(this, data.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onStop() {
+        unregisterReceiver(br)
+        super.onStop()
+    }
+
+    fun sendMessage(){
+
+        val db = RequestDatabase.getInstance(this)
+
+
+
+        val task = @SuppressLint("StaticFieldLeak")
+        object : AsyncTask<Request, Int, Int>() {
+
+            override fun doInBackground(vararg params: Request?): Int {
+                val res = db?.requestDao()?.getAll()
+
+                if (res?.isNotEmpty()!!) {
+
+                    val jsonArr = JSONArray()
+
+                    for (i in 0 until res.size) {
+                        val item = JSONObject()
+                        item.put("name", res[i].name)
+                        item.put("creationTime", res[i].creationTime)
+                        item.put("latitude", res[i].latitude)
+                        item.put("longitude", res[i].longitude)
+                        item.put("phone", res[i].phone)
+                        item.put("place", res[i].place)
+                        jsonArr.put(item)
+                    }
+
+                    val smsManager = SmsManager.getDefault()
+                    val string = smsManager.divideMessage(jsonArr.toString())
+                    SmsManager.getDefault().sendMultipartTextMessage("+919633116645", null, string, null, null);
+                }
+                return 1
+            }
+
+        }
+        task.execute(null)
+
     }
 
     class p2pSolut(
